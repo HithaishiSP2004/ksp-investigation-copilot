@@ -28,9 +28,87 @@ interface CatalystInstance {
   };
 }
 
+
 interface CustomWindow extends Window {
   catalyst?: CatalystInstance;
 }
+
+const loadCDNScript = (resolve: (value: { autoInitialized: boolean }) => void) => {
+  const cdnScript = document.createElement("script");
+  cdnScript.src = "https://static.zoho-cdn.com/catalyst/sdk/js/3.0.0/catalystWebSDK.js";
+  cdnScript.async = true;
+
+  cdnScript.onload = () => {
+    console.log("Catalyst CDN SDK fallback loaded successfully.");
+    resolve({ autoInitialized: false });
+  };
+
+  cdnScript.onerror = () => {
+    console.error("Failed to load Catalyst CDN SDK fallback.");
+    resolve({ autoInitialized: false });
+  };
+
+  document.head.appendChild(cdnScript);
+};
+
+const loadCatalystScript = (): Promise<{ autoInitialized: boolean }> => {
+  return new Promise((resolve) => {
+    const win = typeof window !== "undefined" ? (window as unknown as CustomWindow) : null;
+    if (!win) {
+      resolve({ autoInitialized: false });
+      return;
+    }
+
+    if (win.catalyst) {
+      resolve({ autoInitialized: false });
+      return;
+    }
+
+    // Explicitly detect Zoho Catalyst Slate hosting, Client Hosting, or AppSail domains
+    const isCatalystHosted = 
+      win.location.hostname.includes("onslate.com") ||
+      win.location.hostname.includes("onslate.in") ||
+      win.location.hostname.includes("onslate.eu") ||
+      win.location.hostname.includes("catalystserverless.com") ||
+      win.location.hostname.includes("catalystappsail.com");
+
+    const script = document.createElement("script");
+    script.async = true;
+
+    if (isCatalystHosted) {
+      console.log("Catalyst hosting environment detected. Loading Hosted SDK...");
+      script.src = "/__catalyst/sdk/init.js";
+      script.onload = () => {
+        if (win.catalyst) {
+          console.log("Catalyst Hosted SDK loaded and auto-initialized successfully.");
+          resolve({ autoInitialized: true });
+        } else {
+          console.warn("Hosted SDK loaded but win.catalyst is not defined. Attempting CDN fallback.");
+          document.head.removeChild(script);
+          loadCDNScript(resolve);
+        }
+      };
+      script.onerror = () => {
+        console.error("Failed to load Hosted SDK. Attempting CDN fallback.");
+        document.head.removeChild(script);
+        loadCDNScript(resolve);
+      };
+    } else {
+      console.log("Local/External environment detected. Loading CDN SDK...");
+      script.src = "https://static.zoho-cdn.com/catalyst/sdk/js/3.0.0/catalystWebSDK.js";
+      script.onload = () => {
+        console.log("Catalyst CDN SDK loaded successfully.");
+        resolve({ autoInitialized: false });
+      };
+      script.onerror = () => {
+        console.error("Failed to load Catalyst CDN SDK.");
+        resolve({ autoInitialized: false });
+      };
+    }
+
+    document.head.appendChild(script);
+  });
+};
 
 type AuthContextType = {
   user: OfficerUser | null;
@@ -73,17 +151,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (active) setIsLoading(false);
       });
     } else {
-      // Catalyst Session Recovery
-      let attempts = 0;
-      const maxAttempts = 30; // 3 seconds timeout
-      
-      const interval = setInterval(async () => {
+      // Catalyst Session Recovery with dynamic loader
+      loadCatalystScript().then(async ({ autoInitialized }) => {
+        if (!active) return;
+        
         const win = typeof window !== "undefined" ? (window as unknown as CustomWindow) : null;
         if (win && win.catalyst) {
-          clearInterval(interval);
           try {
-            // Initialize the Web SDK with credentials from environmental configuration
-            if (win.catalyst.init) {
+            // Initialize the Web SDK with credentials only if it wasn't auto-initialized
+            if (!autoInitialized && win.catalyst.init) {
               win.catalyst.init({
                 project_id: process.env.NEXT_PUBLIC_CATALYST_PROJECT_ID,
                 client_id: process.env.NEXT_PUBLIC_CATALYST_CLIENT_ID,
@@ -129,30 +205,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             }
           }
         } else {
-          attempts++;
-          if (attempts >= maxAttempts) {
-            clearInterval(interval);
-            console.error("Catalyst Web SDK script failed to load. Halting session recovery.");
-            if (active) {
-              queueMicrotask(() => {
-                setUser(null);
-                setIsLoading(false);
-              });
-            }
+          console.error("Catalyst Web SDK script failed to load. Halting session recovery.");
+          if (active) {
+            queueMicrotask(() => {
+              setUser(null);
+              setIsLoading(false);
+            });
           }
         }
-      }, 100);
-
-      return () => {
-        clearInterval(interval);
-        active = false;
-      };
+      });
     }
 
     return () => {
       active = false;
     };
   }, [authMode]);
+
 
   const login = async (kgid: string, password: string): Promise<boolean> => {
     setIsLoading(true);

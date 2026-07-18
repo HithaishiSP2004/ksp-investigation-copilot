@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 import { LocaleProvider } from "@/lib/locales-provider";
 import { AuthProvider } from "@/features/auth/auth-context";
@@ -35,11 +34,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <head>
-        {/* Load the Zoho Catalyst Web Client SDK asynchronously */}
-        <Script 
-          src="https://static.zoho-cdn.com/catalyst/sdk/js/3.0.0/catalystWebSDK.js" 
-          strategy="afterInteractive"
-        />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
         <LocaleProvider>
