@@ -66,11 +66,11 @@ const loadCatalystScript = (): Promise<{ autoInitialized: boolean }> => {
 
     // Explicitly detect Zoho Catalyst Slate hosting, Client Hosting, or AppSail domains
     const isCatalystHosted = 
-      win.location.hostname.includes("onslate.com") ||
-      win.location.hostname.includes("onslate.in") ||
-      win.location.hostname.includes("onslate.eu") ||
-      win.location.hostname.includes("catalystserverless.com") ||
-      win.location.hostname.includes("catalystappsail.com");
+      win.location.hostname.endsWith(".onslate.com") || win.location.hostname === "onslate.com" ||
+      win.location.hostname.endsWith(".onslate.in") || win.location.hostname === "onslate.in" ||
+      win.location.hostname.endsWith(".onslate.eu") || win.location.hostname === "onslate.eu" ||
+      win.location.hostname.endsWith(".catalystserverless.com") || win.location.hostname === "catalystserverless.com" ||
+      win.location.hostname.endsWith(".catalystappsail.com") || win.location.hostname === "catalystappsail.com";
 
     const script = document.createElement("script");
     script.async = true;
