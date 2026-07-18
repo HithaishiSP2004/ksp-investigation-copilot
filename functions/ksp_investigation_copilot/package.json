@@ -1,0 +1,9 @@
+{
+	"name": "ksp_investigation_copilot",
+	"version": "1.0.0",
+	"main": "index.js",
+	"author": "Hithaishi S P",
+	"dependencies": {
+		"zcatalyst-sdk-node": "latest"
+	}
+}

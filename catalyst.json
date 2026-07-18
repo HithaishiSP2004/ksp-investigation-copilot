@@ -1,0 +1,15 @@
+{
+  "project": {
+    "name": "Project-Rainfall",
+    "id": "54539000000013024"
+  },
+  "functions": {
+    "source": "functions",
+    "targets": [
+      "ksp_investigation_copilot"
+    ]
+  },
+  "slate": {
+    "source": "frontend"
+  }
+}
