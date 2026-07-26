@@ -18,6 +18,16 @@ const MAJOR_HEADS_MAP = {
 const app = express();
 app.use(express.json());
 
+// Normalize Catalyst server function URL prefixes (/server/ksp_investigation_copilot/api/...)
+app.use((req, res, next) => {
+  if (req.url.startsWith('/server/ksp_investigation_copilot')) {
+    req.url = req.url.replace('/server/ksp_investigation_copilot', '') || '/';
+  } else if (req.url.startsWith('/ksp_investigation_copilot')) {
+    req.url = req.url.replace('/ksp_investigation_copilot', '') || '/';
+  }
+  next();
+});
+
 // Enable CORS and common headers
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -558,41 +568,62 @@ app.get('/api/cases/:id', async (req, res) => {
 
 // POST /api/cases — Create case
 app.post('/api/cases', async (req, res) => {
-  const caseData = req.body;
+  const caseData = req.body || {};
+  
+  // Validate required payload fields
+  const missingFields = [];
+  if (!caseData.crimeNo) missingFields.push('crimeNo (FIR Number)');
+  if (!caseData.briefFacts) missingFields.push('briefFacts (Summary)');
+  
+  if (missingFields.length > 0) {
+    return sendError(
+      res,
+      `Transaction Failed: Missing required parameter(s): ${missingFields.join(', ')}`,
+      'VALIDATION_ERROR',
+      `Payload missing required fields: ${missingFields.join(', ')}`,
+      400
+    );
+  }
+
   try {
     const catalystApp = catalyst.initialize(req);
     const datastore = catalystApp.datastore();
     const caseTable = datastore.table('CaseMaster');
 
     if (!caseData.id) {
-      const zcqlResult = await catalystApp.zcql().executeZCQLQuery('SELECT MAX(id) FROM CaseMaster');
-      const maxId = zcqlResult[0]?.CaseMaster?.id || 0;
-      caseData.id = maxId + 1;
+      try {
+        const zcqlResult = await catalystApp.zcql().executeZCQLQuery('SELECT MAX(id) FROM CaseMaster');
+        const maxId = zcqlResult[0]?.CaseMaster?.id || 0;
+        caseData.id = Number(maxId) + 1;
+      } catch {
+        caseData.id = Date.now();
+      }
     }
 
-    const inserted = await caseTable.insertRow({
-      id: caseData.id,
-      crimeNo: caseData.crimeNo,
-      caseNo: caseData.caseNo,
-      crimeRegisteredDate: caseData.crimeRegisteredDate,
-      policePersonId: caseData.policePersonId,
-      policeStationId: caseData.policeStationId,
-      caseCategoryId: caseData.caseCategoryId,
-      gravityOffenceId: caseData.gravityOffenceId,
-      crimeMajorHeadId: caseData.crimeMajorHeadId,
-      crimeMinorHeadId: caseData.crimeMinorHeadId,
-      caseStatus: caseData.caseStatus,
-      priority: caseData.priority,
-      briefFacts: caseData.briefFacts,
-      incidentFromDate: caseData.incidentFromDate,
-      incidentToDate: caseData.incidentToDate,
-      infoReceivedPSDate: caseData.infoReceivedPSDate,
-      latitude: caseData.latitude,
-      longitude: caseData.longitude,
+    const rowToInsert = {
+      id: Number(caseData.id),
+      crimeNo: String(caseData.crimeNo),
+      caseNo: String(caseData.caseNo || `KSP-BLR-2026-${String(caseData.id).padStart(3, '0')}`),
+      crimeRegisteredDate: String(caseData.crimeRegisteredDate || new Date().toISOString().split('T')[0]),
+      policePersonId: Number(caseData.policePersonId || 101),
+      policeStationId: Number(caseData.policeStationId || 1),
+      caseCategoryId: Number(caseData.caseCategoryId || 10),
+      gravityOffenceId: Number(caseData.gravityOffenceId || 1),
+      crimeMajorHeadId: Number(caseData.crimeMajorHeadId || 20),
+      crimeMinorHeadId: Number(caseData.crimeMinorHeadId || 201),
+      caseStatus: String(caseData.caseStatus || 'UNDER_INVESTIGATION'),
+      priority: String(caseData.priority || 'HIGH'),
+      briefFacts: String(caseData.briefFacts),
+      incidentFromDate: String(caseData.incidentFromDate || new Date().toISOString()),
+      incidentToDate: String(caseData.incidentToDate || new Date().toISOString()),
+      infoReceivedPSDate: String(caseData.infoReceivedPSDate || new Date().toISOString()),
+      latitude: Number(caseData.latitude || 12.9716),
+      longitude: Number(caseData.longitude || 77.5946),
       createdAt: caseData.createdAt || new Date().toISOString().replace('T', ' ').substring(0, 19),
       updatedAt: caseData.updatedAt || new Date().toISOString().replace('T', ' ').substring(0, 19)
-    });
+    };
 
+    const inserted = await caseTable.insertRow(rowToInsert);
     return sendSuccess(res, inserted, 'Case created successfully.', 201);
   } catch (err) {
     if (isSchemaMissingError(err)) {

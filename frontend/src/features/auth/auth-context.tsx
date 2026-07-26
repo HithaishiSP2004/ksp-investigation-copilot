@@ -35,7 +35,7 @@ interface CustomWindow extends Window {
 
 const loadCDNScript = (resolve: (value: { autoInitialized: boolean }) => void) => {
   const cdnScript = document.createElement("script");
-  cdnScript.src = "https://static.zoho-cdn.com/catalyst/sdk/js/3.0.0/catalystWebSDK.js";
+  cdnScript.src = "https://static.zohocdn.com/catalyst/sdk/js/3.0.0/catalystWebSDK.js";
   cdnScript.async = true;
 
   cdnScript.onload = () => {
@@ -95,7 +95,7 @@ const loadCatalystScript = (): Promise<{ autoInitialized: boolean }> => {
       };
     } else {
       console.log("Local/External environment detected. Loading CDN SDK...");
-      script.src = "https://static.zoho-cdn.com/catalyst/sdk/js/3.0.0/catalystWebSDK.js";
+      script.src = "https://static.zohocdn.com/catalyst/sdk/js/3.0.0/catalystWebSDK.js";
       script.onload = () => {
         console.log("Catalyst CDN SDK loaded successfully.");
         resolve({ autoInitialized: false });
