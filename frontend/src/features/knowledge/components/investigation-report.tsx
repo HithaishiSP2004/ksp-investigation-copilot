@@ -69,13 +69,14 @@ export function InvestigationReport({ reportData }: InvestigationReportProps) {
 
           {/* Official Background Watermark Seal */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.03] print:opacity-[0.05] overflow-hidden z-0">
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src="/Seal_of_Karnataka.svg"
               alt="Official Seal of Karnataka Police Watermark"
               width={420}
               height={420}
-              priority
               className="object-contain"
+              aria-hidden="true"
             />
           </div>
 
@@ -93,12 +94,12 @@ export function InvestigationReport({ reportData }: InvestigationReportProps) {
               {/* Centered KSP Emblem Header */}
               <div className="flex flex-col items-center justify-center text-center space-y-1">
                 <div className="relative h-14 w-14 mb-0.5">
-                  <Image
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
                     src="/Seal_of_Karnataka.svg"
                     alt="Official Seal of Karnataka Police"
                     width={56}
                     height={56}
-                    priority
                     className="h-full w-full object-contain filter drop-shadow-xs"
                   />
                 </div>
