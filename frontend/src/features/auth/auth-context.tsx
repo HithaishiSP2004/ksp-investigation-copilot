@@ -125,10 +125,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<OfficerUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   
-  // Set authMode state during initialization to avoid setState in useEffect
-  const [authMode, setAuthMode] = useState<"catalyst" | "mock">(
-    process.env.NEXT_PUBLIC_CATALYST_PROJECT_ID === "mock_project_id" ? "mock" : "catalyst"
-  );
+  // Always use mock/demo authentication so judges can log in with KGID/password
+  // without needing a Catalyst account. Change to "catalyst" only when live auth is needed.
+  const [authMode, setAuthMode] = useState<"catalyst" | "mock">("mock");
 
   useEffect(() => {
     let active = true;
