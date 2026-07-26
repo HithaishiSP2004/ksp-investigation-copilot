@@ -70,13 +70,13 @@ export function IntegratedAuthModule({ onAuthStart, onAuthSuccess }: IntegratedA
 
   return (
     <div className="w-full max-w-md mx-auto space-y-4 animate-scale-up z-20">
-      
+
       {/* Official KSP Emblem & State Identity Header with Frosted Dark Contrast Badge */}
       <KspEmblemSvg showTitle={true} className="h-20 w-20 sm:h-24 sm:w-24" />
 
       {/* Integrated Auth Module Box */}
       <div className="bg-slate-900/95 border border-slate-800 rounded-xl p-6 shadow-2xl backdrop-blur-xl relative overflow-hidden">
-        
+
         {/* Top Telemetry Header */}
         <div className="flex items-center justify-between border-b border-slate-800/80 pb-3 mb-5">
           <div className="flex items-center gap-2 text-slate-200">

@@ -30,7 +30,7 @@ export function CinematicEntry({ onAuthSuccess }: CinematicEntryProps) {
   // ── Reduced motion & dev flags check ──────────────────────
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const devOff  = process.env.NEXT_PUBLIC_DISABLE_CINEMATIC_INTRO === "true";
+    const devOff = process.env.NEXT_PUBLIC_DISABLE_CINEMATIC_INTRO === "true";
     if (reduced || devOff) setStage("AUTH");
   }, []);
 
@@ -49,7 +49,7 @@ export function CinematicEntry({ onAuthSuccess }: CinematicEntryProps) {
 
   return (
     <div className="min-h-screen w-screen bg-[#04070D] text-slate-100 flex flex-col justify-between p-6 relative overflow-hidden select-none">
-      
+
       {/* ── Layer 1: Living Spatial Intelligence Background Canvas ─────────── */}
       <SpatialIntelligenceCanvas stage={stage} />
 
@@ -82,9 +82,9 @@ export function CinematicEntry({ onAuthSuccess }: CinematicEntryProps) {
         )}
 
         {(stage === "AUTH" || stage === "TRANSITION") && (
-          <IntegratedAuthModule 
-            onAuthStart={handleAuthStart} 
-            onAuthSuccess={onAuthSuccess} 
+          <IntegratedAuthModule
+            onAuthStart={handleAuthStart}
+            onAuthSuccess={onAuthSuccess}
           />
         )}
       </main>
