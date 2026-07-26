@@ -18,6 +18,10 @@
   <img src="https://img.shields.io/badge/Zoho%20Catalyst-Powered-blue?style=for-the-badge" alt="Zoho Catalyst" />
   <img src="https://img.shields.io/badge/Localization-English%20%7C%20%E0%B2%95%E0%B2%A8%E0%B3%8D%E0%B2%A8%E0%B2%A1-gold?style=for-the-badge" alt="Localization" />
   <img src="https://img.shields.io/badge/Build-Passing%20(0%20Errors)-brightgreen?style=for-the-badge" alt="Build" />
+  <br/>
+  <a href="https://talaari.onslate.in">
+    <img src="https://img.shields.io/badge/%F0%9F%9A%80%20Live%20Demo-talaari.onslate.in-1d4ed8?style=for-the-badge" alt="Live Demo" />
+  </a>
 </p>
 
 ---
@@ -176,6 +180,14 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 | **KGID Number** | `123456` | Investigating Officer (Inspector) |
 | **Password** | `password` | Secure Password |
 | **Quick Demo** | Click **"Quick Demo Access"** on login page | Instant Authorization |
+
+---
+
+## 🌍 Live Deployment
+
+**Production URL: [https://talaari.onslate.in](https://talaari.onslate.in)**
+
+Hosted on **Zoho Catalyst Slate** (India Region) — CDN-distributed, zero cold start.
 
 ---
 
