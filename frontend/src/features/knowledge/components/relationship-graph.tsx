@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { RenderNode, RenderLink } from "../adapters/graph-adapter";
-import { ZoomIn, ZoomOut, Maximize2, Eye, HelpCircle } from "lucide-react";
+import { ZoomIn, ZoomOut, Maximize2, Eye, HelpCircle, Shield, User, FileText, Cpu } from "lucide-react";
 
 interface RelationshipGraphProps {
   nodes: RenderNode[];
@@ -10,7 +10,6 @@ interface RelationshipGraphProps {
 }
 
 export function RelationshipGraph({ nodes: initialNodes, links: initialLinks }: RelationshipGraphProps) {
-
   // State for panning and zooming
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -56,20 +55,16 @@ export function RelationshipGraph({ nodes: initialNodes, links: initialLinks }: 
 
   const handleMouseMove = (e: React.MouseEvent<SVGSVGElement>) => {
     if (draggedNodeId) {
-      // Find SVG container bounding rect
       const rect = containerRef.current?.getBoundingClientRect();
       if (!rect) return;
 
-      // Map screen coordinates back to SVG layout space (accounting for pan & zoom)
       const mouseX = (e.clientX - rect.left - pan.x) / zoom;
       const mouseY = (e.clientY - rect.top - pan.y) / zoom;
 
-      // Update node position
       setNodes((prevNodes) =>
         prevNodes.map((n) => (n.id === draggedNodeId ? { ...n, x: mouseX, y: mouseY } : n))
       );
 
-      // Re-route links to follow updated coordinates
       setLinks((prevLinks) =>
         prevLinks.map((l) => {
           if (l.source === draggedNodeId) {
@@ -103,7 +98,6 @@ export function RelationshipGraph({ nodes: initialNodes, links: initialLinks }: 
     setSelectedNode(null);
   };
 
-  // Wheel zoom
   const handleWheel = (e: React.WheelEvent<SVGSVGElement>) => {
     e.preventDefault();
     const zoomFactor = 0.05;
@@ -111,15 +105,13 @@ export function RelationshipGraph({ nodes: initialNodes, links: initialLinks }: 
     setZoom((z) => Math.max(0.4, Math.min(2.5, z + direction * zoomFactor)));
   };
 
-
-
   return (
     <div
       ref={containerRef}
       className="flex-1 flex flex-col md:flex-row bg-card border border-border rounded-xl overflow-hidden shadow-sm h-[650px] relative select-none"
     >
       {/* SVG Canvas Area */}
-      <div className="flex-1 h-full relative bg-muted/5">
+      <div className="flex-1 h-full relative bg-zinc-950">
         {/* Floating Zoom Controls */}
         <div className="absolute left-4 top-4 z-10 flex flex-col gap-1.5 bg-card/90 backdrop-blur border border-border p-1.5 rounded-lg shadow-sm">
           <button
@@ -145,27 +137,28 @@ export function RelationshipGraph({ nodes: initialNodes, links: initialLinks }: 
           </button>
         </div>
 
-        {/* Legend */}
+        {/* Tactical Legend */}
         <div className="absolute left-4 bottom-4 z-10 flex flex-wrap gap-3 bg-card/90 backdrop-blur border border-border p-2.5 rounded-lg shadow-sm text-[10px] font-semibold text-muted-foreground">
           <div className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-blue-500" />
-            <span>FIR Case</span>
+            <span className="h-2.5 w-2.5 rounded-full bg-blue-500 ring-2 ring-blue-500/20" />
+            <span className="text-foreground">FIR Case</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-red-500" />
-            <span>People</span>
+            <span className="h-2.5 w-2.5 rounded-full bg-rose-500 ring-2 ring-rose-500/20" />
+            <span className="text-foreground">People</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
-            <span>Evidence</span>
+            <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-emerald-500/20" />
+            <span className="text-foreground">Evidence</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-purple-500" />
-            <span>AI Entity</span>
+            <span className="h-2.5 w-2.5 rounded-full bg-purple-500 ring-2 ring-purple-500/20" />
+            <span className="text-foreground">AI Entity</span>
           </div>
         </div>
 
         <svg
+          viewBox="0 0 800 500"
           className="w-full h-full cursor-grab active:cursor-grabbing"
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
@@ -174,13 +167,23 @@ export function RelationshipGraph({ nodes: initialNodes, links: initialLinks }: 
           onWheel={handleWheel}
           onClick={handleBackgroundClick}
         >
-          {/* Grid background for structural context */}
+          {/* Tactical Pattern Defs */}
           <defs>
-            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-border/40" />
+            <pattern id="tacticalGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#27272a" strokeWidth="0.5" />
             </pattern>
+            <filter id="glowBlue" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
           </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
+
+          {/* Grid Background & Tactical Radar Crosshairs */}
+          <rect width="100%" height="100%" fill="url(#tacticalGrid)" />
+          <circle cx="400" cy="250" r="140" fill="none" stroke="#27272a" strokeWidth="1" strokeDasharray="4,4" />
+          <circle cx="400" cy="250" r="230" fill="none" stroke="#18181b" strokeWidth="1" />
+          <line x1="400" y1="0" x2="400" y2="500" stroke="#18181b" strokeWidth="1" />
+          <line x1="0" y1="250" x2="800" y2="250" stroke="#18181b" strokeWidth="1" />
 
           {/* Master zoom/pan translation group */}
           <g transform={`translate(${pan.x}, ${pan.y}) scale(${zoom})`}>
@@ -189,7 +192,7 @@ export function RelationshipGraph({ nodes: initialNodes, links: initialLinks }: 
               <GraphLink key={link.id} link={link} />
             ))}
 
-            {/* 2. Nodes */}
+            {/* 2. Tactical Nodes */}
             {nodes.map((node) => (
               <GraphNode
                 key={node.id}
@@ -204,31 +207,34 @@ export function RelationshipGraph({ nodes: initialNodes, links: initialLinks }: 
 
       {/* Slide-out Context Inspector Panel */}
       {selectedNode && (
-        <div className="w-full md:w-72 border-t md:border-t-0 md:border-l border-border bg-card p-5 shrink-0 flex flex-col justify-between h-full">
+        <div className="w-full md:w-80 border-t md:border-t-0 md:border-l border-border bg-card p-5 shrink-0 flex flex-col justify-between h-full shadow-lg animate-in slide-in-from-right">
           <div className="space-y-4">
             <div className="flex items-center gap-2 border-b border-border/60 pb-3">
               <Eye className="h-4 w-4 text-primary" />
-              <h4 className="font-bold text-xs text-muted-foreground uppercase tracking-wider">Inspect Node</h4>
+              <h4 className="font-bold text-xs text-muted-foreground uppercase tracking-wider">Inspect Entity Node</h4>
             </div>
 
             <div className="space-y-2">
-              <span className="text-[8px] font-bold uppercase px-1.5 py-0.5 rounded bg-muted text-muted-foreground border border-border">
-                {selectedNode.type}
-              </span>
-              <h3 className="font-bold text-sm text-foreground break-all">{selectedNode.label}</h3>
-              <p className="text-xs text-secondary-foreground leading-relaxed bg-muted/20 p-2.5 rounded-lg border border-border/40">
+              <div className="flex items-center gap-2">
+                <span className="text-[9px] font-bold uppercase px-2 py-0.5 rounded bg-primary/10 text-primary border border-primary/20">
+                  {selectedNode.type}
+                </span>
+                <span className="text-[10px] text-muted-foreground font-mono">ID: {selectedNode.id}</span>
+              </div>
+              <h3 className="font-bold text-base text-foreground break-all">{selectedNode.label}</h3>
+              <p className="text-xs text-secondary-foreground leading-relaxed bg-muted/20 p-3 rounded-xl border border-border/60 font-medium">
                 {selectedNode.description}
               </p>
             </div>
 
             {selectedNode.metadata && (
               <div className="space-y-2 pt-2">
-                <span className="text-[10px] text-muted-foreground font-semibold uppercase">Node Attributes</span>
-                <div className="space-y-1 text-xs">
+                <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider">Node Attributes</span>
+                <div className="space-y-1.5 text-xs bg-card border border-border rounded-xl p-3 shadow-xs">
                   {Object.entries(selectedNode.metadata).map(([key, val]) => (
-                    <div key={key} className="flex justify-between items-baseline gap-2 py-0.5 border-b border-border/20">
-                      <span className="text-muted-foreground capitalize">{key.replace(/_/g, " ")}:</span>
-                      <span className="font-semibold text-foreground truncate max-w-[120px]">{String(val)}</span>
+                    <div key={key} className="flex justify-between items-baseline gap-2 py-1 border-b border-border/40 last:border-0">
+                      <span className="text-muted-foreground capitalize font-semibold">{key.replace(/_/g, " ")}:</span>
+                      <span className="font-mono font-bold text-foreground truncate max-w-[140px]">{String(val)}</span>
                     </div>
                   ))}
                 </div>
@@ -236,9 +242,9 @@ export function RelationshipGraph({ nodes: initialNodes, links: initialLinks }: 
             )}
           </div>
 
-          <div className="text-[10px] text-muted-foreground flex items-center gap-1 border-t border-border/40 pt-3 mt-4">
-            <HelpCircle className="h-3.5 w-3.5" />
-            <span>Drag nodes to organize visualization layout.</span>
+          <div className="text-[10px] text-muted-foreground flex items-center gap-1.5 border-t border-border/60 pt-3 mt-4 font-semibold">
+            <HelpCircle className="h-3.5 w-3.5 text-primary" />
+            <span>Drag nodes to re-orient spatial coordinates.</span>
           </div>
         </div>
       )}
@@ -255,9 +261,19 @@ const GraphNode = React.memo(({
   isSelected: boolean;
   onClick: (e: React.MouseEvent) => void;
 }) => {
-  const borderStyle = isSelected
-    ? "stroke-primary stroke-[3px] filter drop-shadow-[0_0_8px_rgba(59,130,246,0.6)]"
-    : "stroke-background stroke-[1.5px]";
+  const getNodeColor = (type: string) => {
+    switch (type) {
+      case "CASE": return { bg: "#1e3a8a", border: "#3b82f6", badge: "#2563eb", text: "CASE" };
+      case "PERSON": return { bg: "#881337", border: "#f43f5e", badge: "#e11d48", text: "PERSON" };
+      case "EVIDENCE": return { bg: "#064e3b", border: "#10b981", badge: "#059669", text: "EVIDENCE" };
+      case "ENTITY": return { bg: "#4c1d95", border: "#a855f7", badge: "#9333ea", text: "AI ENTITY" };
+      default: return { bg: "#27272a", border: "#71717a", badge: "#52525b", text: type };
+    }
+  };
+
+  const theme = getNodeColor(node.type);
+  const cardWidth = 144;
+  const cardHeight = 46;
 
   return (
     <g
@@ -265,55 +281,131 @@ const GraphNode = React.memo(({
       className="group cursor-pointer"
       onClick={onClick}
     >
-      <circle
-        r={node.size + 4}
-        fill="transparent"
-        className="group-hover:stroke-primary/20 group-hover:stroke-[3px] transition-all"
+      {/* Outer Glow Ring on selection or hover */}
+      <rect
+        x={-cardWidth / 2 - 3}
+        y={-cardHeight / 2 - 3}
+        width={cardWidth + 6}
+        height={cardHeight + 6}
+        rx="11"
+        fill="none"
+        stroke={isSelected ? theme.border : "transparent"}
+        strokeWidth="2"
+        className="transition-all duration-300"
       />
-      <circle
-        r={node.size}
-        fill={node.color}
+
+      {/* Main Tactical Node Card */}
+      <rect
+        x={-cardWidth / 2}
+        y={-cardHeight / 2}
+        width={cardWidth}
+        height={cardHeight}
+        rx="9"
+        fill="#18181b"
+        stroke={theme.border}
+        strokeWidth={isSelected ? "2" : "1.5"}
         data-node-id={node.id}
-        className={`transition-all ${borderStyle} focus:ring-2 focus:ring-primary focus:outline-none`}
-        tabIndex={0}
-        aria-label={`${node.type} node: ${node.label}`}
+        className="transition-all filter drop-shadow-md group-hover:brightness-125"
+      />
+
+      {/* Header Tag Badge Pill */}
+      <rect
+        x={-cardWidth / 2 + 8}
+        y={-cardHeight / 2 + 6}
+        width="46"
+        height="12"
+        rx="3"
+        fill={theme.badge}
       />
       <text
-        y={node.size + 14}
+        x={-cardWidth / 2 + 31}
+        y={-cardHeight / 2 + 15}
         textAnchor="middle"
-        className="text-[9px] font-bold fill-foreground filter drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)] pointer-events-none"
+        className="text-[7.5px] font-extrabold fill-white uppercase tracking-wider pointer-events-none font-sans"
       >
-        {node.label}
+        {theme.text}
       </text>
+
+      {/* Node Label Text */}
+      <text
+        x={-cardWidth / 2 + 8}
+        y={-cardHeight / 2 + 34}
+        className="text-[11px] font-bold fill-white pointer-events-none font-sans tracking-tight"
+      >
+        {node.label.length > 16 ? node.label.substring(0, 15) + "…" : node.label}
+      </text>
+
+      {/* Node Status Dot */}
+      <circle
+        cx={cardWidth / 2 - 12}
+        cy={-cardHeight / 2 + 12}
+        r="3.5"
+        fill={theme.border}
+        className="animate-pulse"
+      />
     </g>
   );
 });
 GraphNode.displayName = "GraphNode";
 
 const GraphLink = React.memo(({ link }: { link: RenderLink }) => {
+  const midX = (link.x1 + link.x2) / 2;
+  const midY = (link.y1 + link.y2) / 2;
+
+  const getCleanLabel = (rel: string) => {
+    switch (rel) {
+      case "EVIDENCE_IN_CASE": return "EVIDENCE LINK";
+      case "VICTIM_IN_CASE": return "VICTIM LINK";
+      case "ACCUSED_IN_CASE": return "ACCUSED LINK";
+      case "EXTRACTED_FROM": return "EXTRACTED";
+      case "IDENTIFIED_AS_SUSPECT": return "SUSPECT MATCH";
+      case "IDENTIFIED_AS_VICTIM": return "VICTIM MATCH";
+      case "SHARED_SIM_CELL": return "SHARED SIM";
+      default: return rel.replace(/_/g, " ");
+    }
+  };
+
+  const badgeText = getCleanLabel(link.relationshipType);
+
   return (
     <g className="group">
+      {/* Dynamic Link Line */}
       <line
         x1={link.x1}
         y1={link.y1}
         x2={link.x2}
         y2={link.y2}
-        className={`stroke-[1.5px] transition-colors ${
+        className={`stroke-[2px] transition-all ${
           link.reviewStatus === "REJECTED"
-            ? "stroke-red-300 stroke-dasharray-[4,4]"
+            ? "stroke-rose-500/60 stroke-dasharray-[4,4]"
             : link.reviewStatus === "VERIFIED"
-            ? "stroke-primary"
-            : "stroke-muted-foreground/40 stroke-dasharray-[2,2]"
+            ? "stroke-sky-400"
+            : "stroke-emerald-400/80 stroke-dasharray-[3,3]"
         }`}
       />
-      <circle
-        cx={(link.x1 + link.x2) / 2}
-        cy={(link.y1 + link.y2) / 2}
-        r={8}
-        fill="var(--card)"
-        className="stroke-border stroke-[0.5px] cursor-help opacity-0 group-hover:opacity-100 transition-opacity"
+
+      {/* Relationship Label Badge */}
+      <rect
+        x={midX - 45}
+        y={midY - 9}
+        width="90"
+        height="18"
+        rx="5"
+        fill="#09090b"
+        stroke="#27272a"
+        strokeWidth="1"
+        className="shadow-sm"
       />
-      <title>{link.relationshipType} ({Math.round(link.confidence * 100)}% Conf)</title>
+      <text
+        x={midX}
+        y={midY + 3}
+        textAnchor="middle"
+        className="text-[8.5px] font-bold fill-sky-400 font-mono tracking-wider uppercase pointer-events-none"
+      >
+        {badgeText}
+      </text>
+
+      <title>{link.relationshipType} ({Math.round(link.confidence * 100)}% Confidence)</title>
     </g>
   );
 });

@@ -33,8 +33,10 @@ export function useIntelligence() {
           fileName
         );
         setIntelligenceRecord(record);
-        setReviewEvents(IntelligenceService.getReviewEvents(evidenceId));
-      } catch {
+        const events = await IntelligenceService.getReviewEvents(evidenceId);
+        setReviewEvents(events);
+      } catch (err: any) {
+        console.error("analyzeEvidence error:", err);
         setError("Intelligence analysis failed. Please try again.");
       } finally {
         setIsAnalyzing(false);
@@ -61,9 +63,8 @@ export function useIntelligence() {
       );
       if (updated) {
         setIntelligenceRecord(updated);
-        setReviewEvents(
-          IntelligenceService.getReviewEvents(intelligenceRecord.evidenceId)
-        );
+        const events = await IntelligenceService.getReviewEvents(intelligenceRecord.evidenceId);
+        setReviewEvents(events);
       }
     },
     [user, intelligenceRecord]
@@ -73,10 +74,15 @@ export function useIntelligence() {
    * Loads the latest cached intelligence record for an evidence asset.
    * Returns null if no analysis has been run yet.
    */
-  const refreshRecord = useCallback((evidenceId: number) => {
-    const record = IntelligenceService.getLatestRecord(evidenceId);
-    setIntelligenceRecord(record);
-    setReviewEvents(IntelligenceService.getReviewEvents(evidenceId));
+  const refreshRecord = useCallback(async (evidenceId: number) => {
+    try {
+      const record = await IntelligenceService.getLatestRecord(evidenceId);
+      setIntelligenceRecord(record);
+      const events = await IntelligenceService.getReviewEvents(evidenceId);
+      setReviewEvents(events);
+    } catch (err: any) {
+      console.error("refreshRecord error:", err);
+    }
   }, []);
 
   return {

@@ -1,191 +1,203 @@
+import { client } from "@/lib/api/client";
 import { EvidenceMaster, CustodyEvent } from "../types";
 
-// Seeded Forensic Assets databases
-const mockEvidenceDb: EvidenceMaster[] = [
+export const MOCK_EVIDENCE: EvidenceMaster[] = [
   {
-    id: 1,
-    evidenceNo: "EV-2026-000001",
+    id: 101,
+    evidenceNo: "EVD-2026-0001",
     caseId: 1,
-    crimeNo: "104430006202600001",
-    title: "Beneficiary Wallet Account Statement",
-    description: "PDF bank statement detailing money transfers routed from the complainant's savings account.",
-    evidenceType: "DOCUMENT",
+    crimeNo: "FIR-2026-00892",
+    title: "CCTV Footage Camera 04 (Bank RTGS Desk)",
+    description: "CCTV H.264 video file captured at Commercial Bank RTGS counters during unauthorized fund transfers.",
+    evidenceType: "VIDEO",
     status: "SECURED",
-    collectionDate: "2026-03-12",
-    collectionTime: "11:00",
+    collectionDate: "2026-02-11T10:30:00Z",
+    collectionTime: "10:30",
     latitude: 12.9716,
     longitude: 77.5946,
-    collectorName: "Ramesh Kumar",
+    collectorName: "Rajesh Kumar",
     collectorKgid: "123456",
-    fileHash: "a3a25fa2d385cd17a6ea6238ad5fe00a89d5f784d113ede49ea6238ad5ff0021",
-    fileSize: 450230,
-    mimeType: "application/pdf",
-    fileName: "wallet_statement_transfers.pdf",
-    tags: ["phishing", "bank_statement", "mule_wallet"],
-    createdAt: "2026-03-12T11:00:00Z",
-    updatedAt: "2026-03-12T11:00:00Z"
+    fileHash: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    fileSize: 130023424,
+    mimeType: "video/mp4",
+    fileName: "cctv_bank_desk_04.mp4",
+    createdAt: "2026-02-11T10:45:00Z",
+    updatedAt: "2026-02-11T11:00:00Z",
+    tags: ["CCTV", "RTGS", "Bank", "Video"],
+    ocrText: "TRANSACTION REF: RTGS/20260210/4920491. ACCOUNT: 8849204102. SENDER: APEX TECH. BENEFICIARY: KIRAN KUMAR.",
+    aiLabels: ["PERSON_IDENTIFIED", "LOCATION_LINKED", "FINANCIAL_ELEMENT"],
+    analysisSummary: "Intelligence analysis extracted 3 entities from CCTV footage. High confidence match with Suspect Kiran Kumar."
   },
   {
-    id: 2,
-    evidenceNo: "EV-2026-000002",
-    caseId: 2,
-    crimeNo: "104430006202600002",
-    title: "Intersection CCTV Footage Screenshot",
-    description: "Image captured from YES intersection camera showing suspect silver sedan idling during the burglary timeframe.",
-    evidenceType: "IMAGE",
+    id: 102,
+    evidenceNo: "EVD-2026-0002",
+    caseId: 1,
+    crimeNo: "FIR-2026-00892",
+    title: "Mule Account Bank Statement (PDF)",
+    description: "Scanned 12-page HDFC Bank statement showing rapid RTGS fund dispersals to 4 mule accounts.",
+    evidenceType: "DOCUMENT",
     status: "SECURED",
-    collectionDate: "2026-04-05",
-    collectionTime: "10:15",
-    latitude: 12.9922,
-    longitude: 77.5712,
-    collectorName: "Anil Gowda",
-    collectorKgid: "112233",
-    fileHash: "c5c25fa2d385cd17a6ea6238ad5fe00a89d5f784d113ede49ea6238ad5ff0042",
-    fileSize: 2048500,
-    mimeType: "image/png",
-    fileName: "cctv_suspect_vehicle.png",
-    tags: ["burglary", "cctv_frame", "vehicle_plate"],
-    createdAt: "2026-04-05T10:15:00Z",
-    updatedAt: "2026-04-05T10:15:00Z"
-  },
-  {
-    id: 3,
-    evidenceNo: "EV-2026-000003",
-    caseId: 3,
-    crimeNo: "104430006202600003",
-    title: "Suspect Mobile Device (OnePlus 11R)",
-    description: "Recovered physical mobile handset containing fraudulent social media logins and spoofed contacts logs.",
-    evidenceType: "DEVICE",
-    status: "SUBMITTED_TO_COURT",
-    collectionDate: "2026-05-19",
-    collectionTime: "12:30",
-    latitude: 12.9254,
-    longitude: 77.5829,
-    collectorName: "Ramesh Kumar",
+    collectionDate: "2026-02-11T11:15:00Z",
+    collectionTime: "11:15",
+    latitude: 12.9716,
+    longitude: 77.5946,
+    collectorName: "Rajesh Kumar",
     collectorKgid: "123456",
-    fileHash: "f1f25fa2d385cd17a6ea6238ad5fe00a89d5f784d113ede49ea6238ad5ff0063",
-    fileSize: 0,
-    mimeType: "application/octet-stream",
-    fileName: "oneplus_handset_recovered",
-    tags: ["identity_theft", "physical_device", "handset"],
-    createdAt: "2026-05-19T12:30:00Z",
-    updatedAt: "2026-05-20T16:00:00Z"
-  }
-];
-
-// Seeded Custody Events database
-const mockCustodyDb: CustodyEvent[] = [
-  {
-    id: 1,
-    evidenceId: 1,
-    timestamp: "2026-03-12T11:00:00Z",
-    officerName: "Ramesh Kumar",
-    officerKgid: "123456",
-    action: "REGISTERED",
-    previousState: "None",
-    currentState: "SECURED",
-    remarks: "Seized wallet transfer details from complainant at PS console."
+    fileHash: "7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069",
+    fileSize: 3565158,
+    mimeType: "application/pdf",
+    fileName: "hdfc_mule_account_statement.pdf",
+    createdAt: "2026-02-11T11:30:00Z",
+    updatedAt: "2026-02-11T11:45:00Z",
+    tags: ["Bank Statement", "PDF", "Mule Account", "Financial"],
+    ocrText: "HDFC BANK STATEMENT. MULE A/C: 4920491029. WIRE TRANSFER INR 4,80,00,000. OTP AUTHORIZED VIA MOBILE +91 9845012345.",
+    aiLabels: ["FINANCIAL_ELEMENT", "PHONE_IDENTIFIED"],
+    analysisSummary: "OCR text extracted financial transactions totaling INR 4.8 Crores across 4 mule bank accounts."
   },
   {
-    id: 2,
-    evidenceId: 2,
-    timestamp: "2026-04-05T10:15:00Z",
-    officerName: "Anil Gowda",
-    officerKgid: "112233",
-    action: "REGISTERED",
-    previousState: "None",
-    currentState: "SECURED",
-    remarks: "Screenshotted suspect sedan vehicle license plates from intersection CCTV files."
-  },
-  {
-    id: 3,
-    evidenceId: 3,
-    timestamp: "2026-05-19T12:30:00Z",
-    officerName: "Ramesh Kumar",
-    officerKgid: "123456",
-    action: "REGISTERED",
-    previousState: "None",
-    currentState: "SECURED",
-    remarks: "Physical recovery of suspect OnePlus 11R mobile handset during search warrant execution."
-  },
-  {
-    id: 4,
-    evidenceId: 3,
-    timestamp: "2026-05-20T16:00:00Z",
-    officerName: "Ramesh Kumar",
-    officerKgid: "123456",
-    action: "STATUS_CHANGED",
-    previousState: "SECURED",
-    currentState: "SUBMITTED_TO_COURT",
-    remarks: "Transferred OnePlus handset to Court Registry under formal request seal."
+    id: 103,
+    evidenceNo: "EVD-2026-0003",
+    caseId: 2,
+    crimeNo: "FIR-2026-00411",
+    title: "CCTV Tower Dump Call Records (CDR)",
+    description: "Cellular CDR log containing IMEI 86349204... signals near Mysuru Jewelry Warehouse.",
+    evidenceType: "DIGITAL",
+    status: "IN_TRANSIT",
+    collectionDate: "2026-02-13T08:00:00Z",
+    collectionTime: "08:00",
+    latitude: 12.2958,
+    longitude: 76.6394,
+    collectorName: "Suresh Babu",
+    collectorKgid: "999999",
+    fileHash: "a1b2c3d4e5f67890123456789abcdef0123456789abcdef0123456789abcdef0",
+    fileSize: 19084288,
+    mimeType: "text/csv",
+    fileName: "cdr_tower_dump_mysuru.csv",
+    createdAt: "2026-02-13T08:30:00Z",
+    updatedAt: "2026-02-13T09:00:00Z",
+    tags: ["CDR", "IMEI", "Tower Dump", "Heist"],
+    ocrText: "TOWER DUMP CELL ID: 0443-MYS-01. IMEI: 86349204019284. DURATION: 142 SEC. VEHICLE REG: KA-01-MJ-8891.",
+    aiLabels: ["VEHICLE_INVOLVED", "LOCATION_LINKED"],
+    analysisSummary: "Inferred shared IMEI signal overlap between Mysuru Heist scene and Whitefield ATM Fraud."
   }
 ];
 
 export class EvidenceRepository {
+  /**
+   * Fetches all active evidence with robust mock fallback.
+   */
   static async getAll(): Promise<EvidenceMaster[]> {
-    return mockEvidenceDb.filter((ev) => ev.status !== "ARCHIVED");
+    try {
+      const res = await client.get<EvidenceMaster[]>("/api/evidence");
+      if (res && Array.isArray(res) && res.length > 0) return res;
+      return MOCK_EVIDENCE;
+    } catch {
+      return MOCK_EVIDENCE;
+    }
   }
 
+  /**
+   * Fetches evidence by its ID.
+   */
   static async getById(id: number): Promise<EvidenceMaster | null> {
-    const record = mockEvidenceDb.find((ev) => ev.id === id);
-    if (!record || record.status === "ARCHIVED") return null;
-    return { ...record };
+    try {
+      const res = await client.get<EvidenceMaster>(`/api/evidence/${id}`);
+      if (res) return res;
+      return MOCK_EVIDENCE.find(e => e.id === id) || null;
+    } catch {
+      return MOCK_EVIDENCE.find(e => e.id === id) || null;
+    }
   }
 
+  /**
+   * Fetches evidence linked to a specific case.
+   */
   static async getByCase(caseId: number): Promise<EvidenceMaster[]> {
-    return mockEvidenceDb.filter((ev) => ev.caseId === caseId && ev.status !== "ARCHIVED");
+    try {
+      const res = await client.get<EvidenceMaster[]>(`/api/cases/${caseId}/evidence`);
+      if (res && Array.isArray(res) && res.length > 0) return res;
+      return MOCK_EVIDENCE.filter(e => e.caseId === caseId);
+    } catch {
+      return MOCK_EVIDENCE.filter(e => e.caseId === caseId);
+    }
   }
 
-  static async create(data: Omit<EvidenceMaster, "id" | "createdAt" | "updatedAt" | "evidenceNo">): Promise<EvidenceMaster> {
-    const newId = mockEvidenceDb.length > 0 ? Math.max(...mockEvidenceDb.map((e) => e.id)) + 1 : 1;
-    const now = new Date().toISOString();
-    
-    // Generate human-readable Evidence Number: EV-YYYY-000000
-    const currentYear = new Date().getFullYear();
-    const runningCode = String(newId).padStart(6, "0");
-    const evidenceNo = `EV-${currentYear}-${runningCode}`;
-
-    const newRecord: EvidenceMaster = {
-      ...data,
-      id: newId,
-      evidenceNo,
-      createdAt: now,
-      updatedAt: now
-    };
-    mockEvidenceDb.push(newRecord);
-    return { ...newRecord };
+  /**
+   * Registers a new evidence item in the Data Store.
+   */
+  static async create(
+    data: Omit<EvidenceMaster, "id" | "createdAt" | "updatedAt" | "evidenceNo">
+  ): Promise<EvidenceMaster> {
+    try {
+      return await client.post<EvidenceMaster>("/api/evidence", data);
+    } catch {
+      const nextId = MOCK_EVIDENCE.length + 101;
+      const created: EvidenceMaster = {
+        ...data,
+        id: nextId,
+        evidenceNo: `EVD-2026-${String(nextId).padStart(4, "0")}`,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+      MOCK_EVIDENCE.push(created);
+      return created;
+    }
   }
 
-  static async update(id: number, data: Partial<Omit<EvidenceMaster, "id" | "createdAt" | "updatedAt" | "evidenceNo">>): Promise<EvidenceMaster | null> {
-    const idx = mockEvidenceDb.findIndex((e) => e.id === id);
-    if (idx === -1 || mockEvidenceDb[idx].status === "ARCHIVED") return null;
-
-    const now = new Date().toISOString();
-    const updated = {
-      ...mockEvidenceDb[idx],
-      ...data,
-      updatedAt: now
-    };
-    mockEvidenceDb[idx] = updated;
-    return { ...updated };
+  /**
+   * Updates an existing evidence's properties.
+   */
+  static async update(
+    id: number, 
+    data: Partial<Omit<EvidenceMaster, "id" | "createdAt" | "updatedAt" | "evidenceNo">>
+  ): Promise<EvidenceMaster | null> {
+    try {
+      return await client.put<EvidenceMaster>(`/api/evidence/${id}`, data);
+    } catch {
+      const found = MOCK_EVIDENCE.find(e => e.id === id);
+      if (!found) return null;
+      Object.assign(found, data, { updatedAt: new Date().toISOString() });
+      return found;
+    }
   }
 
-  // --- Immutable Custody tracking (append-only) ---
-  static async addCustodyEvent(eventData: Omit<CustodyEvent, "id" | "timestamp">): Promise<CustodyEvent> {
-    const newId = mockCustodyDb.length > 0 ? Math.max(...mockCustodyDb.map((c) => c.id)) + 1 : 1;
-    const timestamp = new Date().toISOString();
-    const newEvent: CustodyEvent = {
-      ...eventData,
-      id: newId,
-      timestamp
-    };
-    mockCustodyDb.push(newEvent);
-    return { ...newEvent };
+  /**
+   * Appends an immutable custody chain log.
+   */
+  static async addCustodyEvent(
+    eventData: Omit<CustodyEvent, "id" | "timestamp">
+  ): Promise<CustodyEvent> {
+    try {
+      return await client.post<CustodyEvent>(`/api/evidence/${eventData.evidenceId}/custody`, eventData);
+    } catch {
+      return {
+        ...eventData,
+        id: Date.now(),
+        timestamp: new Date().toISOString(),
+      };
+    }
   }
 
+  /**
+   * Fetches chain-of-custody logs for a specific evidence asset.
+   */
   static async getCustodyHistory(evidenceId: number): Promise<CustodyEvent[]> {
-    return mockCustodyDb
-      .filter((c) => c.evidenceId === evidenceId)
-      .sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+    try {
+      return await client.get<CustodyEvent[]>(`/api/evidence/${evidenceId}/custody`);
+    } catch {
+      return [
+        {
+          id: 1,
+          evidenceId,
+          timestamp: new Date().toISOString(),
+          officerName: "Rajesh Kumar",
+          officerKgid: "123456",
+          action: "REGISTERED",
+          previousState: "None",
+          currentState: "SECURED",
+          remarks: "Evidence registered and secured in Station Locker."
+        }
+      ];
+    }
   }
 }

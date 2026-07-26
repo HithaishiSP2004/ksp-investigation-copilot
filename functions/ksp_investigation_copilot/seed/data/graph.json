@@ -1,0 +1,194 @@
+{
+  "nodes": [
+    {
+      "id": "case-1",
+      "label": "Alpha: Cyber Fraud",
+      "type": "CASE",
+      "severity": "MEDIUM"
+    },
+    {
+      "id": "case-2",
+      "label": "Bravo: Narcotics Bust",
+      "type": "CASE",
+      "severity": "HIGH"
+    },
+    {
+      "id": "case-3",
+      "label": "Charlie: Money Laundering",
+      "type": "CASE",
+      "severity": "HIGH"
+    },
+    {
+      "id": "case-4",
+      "label": "Delta: Human Trafficking",
+      "type": "CASE",
+      "severity": "HIGH"
+    },
+    {
+      "id": "case-5",
+      "label": "Echo: Missing Person",
+      "type": "CASE",
+      "severity": "MEDIUM"
+    },
+    {
+      "id": "susp-1",
+      "label": "Mohit Sharma",
+      "type": "SUSPECT",
+      "phone": "9876543210"
+    },
+    {
+      "id": "susp-2",
+      "label": "Alok Dubey",
+      "type": "SUSPECT",
+      "phone": "9731223344"
+    },
+    {
+      "id": "susp-3",
+      "label": "Vikram Malhotra",
+      "type": "SUSPECT",
+      "phone": "9876543210",
+      "imei": "IMEI8899889988"
+    },
+    {
+      "id": "susp-4",
+      "label": "Suresh Gowda",
+      "type": "SUSPECT",
+      "vehicle": "KA-01-ME-1234"
+    },
+    {
+      "id": "susp-5",
+      "label": "Animesh Roy",
+      "type": "SUSPECT",
+      "bank": "1122334455"
+    },
+    {
+      "id": "susp-7",
+      "label": "Jagdish Prasad",
+      "type": "SUSPECT",
+      "vehicle": "KA-01-ME-1234"
+    },
+    {
+      "id": "susp-9",
+      "label": "Lokesh Gowda",
+      "type": "SUSPECT",
+      "ip": "103.44.20.10"
+    },
+    {
+      "id": "vic-1",
+      "label": "Shruti Hegde",
+      "type": "VICTIM"
+    },
+    {
+      "id": "vic-2",
+      "label": "Rajesh Gowda",
+      "type": "VICTIM"
+    },
+    {
+      "id": "vic-9",
+      "label": "Tarun Bhat",
+      "type": "VICTIM"
+    }
+  ],
+  "edges": [
+    {
+      "source": "susp-1",
+      "target": "case-1",
+      "relation": "SUSPECT_IN",
+      "confidence": 1
+    },
+    {
+      "source": "susp-2",
+      "target": "case-1",
+      "relation": "SUSPECT_IN",
+      "confidence": 1
+    },
+    {
+      "source": "susp-3",
+      "target": "case-2",
+      "relation": "SUSPECT_IN",
+      "confidence": 1
+    },
+    {
+      "source": "susp-4",
+      "target": "case-2",
+      "relation": "SUSPECT_IN",
+      "confidence": 1
+    },
+    {
+      "source": "susp-5",
+      "target": "case-3",
+      "relation": "SUSPECT_IN",
+      "confidence": 1
+    },
+    {
+      "source": "susp-7",
+      "target": "case-4",
+      "relation": "SUSPECT_IN",
+      "confidence": 1
+    },
+    {
+      "source": "susp-9",
+      "target": "case-5",
+      "relation": "SUSPECT_IN",
+      "confidence": 1
+    },
+    {
+      "source": "vic-1",
+      "target": "case-1",
+      "relation": "VICTIM_IN",
+      "confidence": 1
+    },
+    {
+      "source": "vic-2",
+      "target": "case-1",
+      "relation": "VICTIM_IN",
+      "confidence": 1
+    },
+    {
+      "source": "vic-9",
+      "target": "case-5",
+      "relation": "VICTIM_IN",
+      "confidence": 1
+    },
+    {
+      "source": "susp-1",
+      "target": "susp-3",
+      "relation": "SHARED_PHONE_9876543210",
+      "type": "BURNER_LINK",
+      "confidence": 0.98,
+      "weight": 5
+    },
+    {
+      "source": "susp-4",
+      "target": "susp-7",
+      "relation": "SHARED_VEHICLE_KA-01-ME-1234",
+      "type": "TRAFFICKING_LINK",
+      "confidence": 0.95,
+      "weight": 4
+    },
+    {
+      "source": "susp-5",
+      "target": "case-1",
+      "relation": "MULE_ACCOUNT_1122334455",
+      "type": "FINANCIAL_LINK",
+      "confidence": 0.94,
+      "weight": 4
+    },
+    {
+      "source": "vic-9",
+      "target": "case-2",
+      "relation": "SEEN_IN_VEHICLE_KA-01-ME-1234",
+      "type": "MISSING_LINK",
+      "confidence": 0.9,
+      "weight": 3
+    },
+    {
+      "source": "vic-9",
+      "target": "case-1",
+      "relation": "IP_MATCH_103.44.20.10",
+      "type": "CYBER_LINK",
+      "confidence": 0.92,
+      "weight": 3
+    }
+  ]
+}

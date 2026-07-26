@@ -3,19 +3,25 @@ export type LocaleType = "en" | "kn";
 export const translations = {
   en: {
     // Auth Screen
-    loginTitle: "KSP Investigation Copilot",
-    loginSubtitle: "Karnataka State Police Datathon 2026",
+    loginTitle: "KARNATAKA STATE POLICE",
+    loginSubtitle: "AI INVESTIGATION CONSOLE",
+    appName: "TALAARI",
+    appNameKannada: "ತಳವಾರ",
+    securePlatform: "TALAARI OS // AI INVESTIGATION PLATFORM",
     officerSignIn: "Officer Sign-In",
     kgidLabel: "Government KGID Number",
     passwordLabel: "Password",
     kgidPlaceholder: "Enter your 6-digit KGID number",
     passwordPlaceholder: "Enter your secure password",
     loginButton: "Sign In",
+    authorizeConsole: "AUTHORIZE & ENTER CONSOLE",
+    headerNodeTitle: "KARNATAKA STATE POLICE // TALAARI INTELLIGENCE NODE",
+    quickDemoAccess: "QUICK DEMO ACCESS:",
     forgotPassword: "Forgot password? Contact station IT admin.",
     requiredKgid: "KGID number is required",
     requiredPassword: "Password is required",
     invalidCredentials: "Invalid KGID number or password.",
-    authenticating: "Authenticating officer credentials...",
+    authenticating: "AUTHENTICATING OFFICER CREDENTIALS...",
 
     // Layout / Header
     headerSearchPlaceholder: "Search cases, FIR numbers, officers...",
@@ -30,7 +36,7 @@ export const translations = {
     navCases: "Case Files",
     navEvidence: "Evidence Store",
     navTimeline: "Case Timelines",
-    navCopilot: "Intelligence Copilot",
+    navCopilot: "TALAARI Copilot",
     navReports: "Report Console",
     navSettings: "Settings",
 
@@ -42,7 +48,7 @@ export const translations = {
     statusCompleted: "Closed",
     statusPending: "Pending Review",
 
-    // Dashboard (Sprint 2 additions)
+    // Dashboard
     dashMyInvestigations: "My Active Investigations",
     dashContinueInvestigating: "Continue Investigation",
     dashRecentActivity: "Recent Case Activity",
@@ -59,7 +65,7 @@ export const translations = {
     dashNoPending: "No high-priority alerts needing review.",
     dashMyActiveSubtitle: "Directly assigned cases requiring investigation",
 
-    // Case Workspace Layout (Sprint 2 Left-Center-Right)
+    // Case Workspace Layout
     wsCaseList: "Active Cases",
     wsOverview: "Investigation Overview",
     wsMetadata: "Case Details & Actions",
@@ -176,7 +182,7 @@ export const translations = {
     evAssetDescription: "Asset Description",
     evRelatedFir: "Related FIR File",
 
-    // Intelligence Engine (Sprint 5)
+    // Intelligence Engine
     intelPanelTitle: "Intelligence Analysis",
     intelAnalyzeBtn: "Analyse with AI",
     intelAnalyzing: "Running intelligence pipeline...",
@@ -206,7 +212,6 @@ export const translations = {
     intelRelationsType: "Relationship",
     intelErrorFailed: "Intelligence analysis failed. Please retry.",
     intelNoRecord: "No analysis available. Click Analyse with AI to begin.",
-    // Entity type labels
     entityTypePERSON: "Person",
     entityTypePHONE: "Phone",
     entityTypeVEHICLE: "Vehicle",
@@ -218,7 +223,7 @@ export const translations = {
     entityTypeCURRENCY: "Currency",
     entityTypeIDENTITY_NUMBER: "Identity No.",
 
-    // Sprint 6
+    // Timeline & Reports
     timelineFilterLabel: "Timeline Filter",
     allEventTypes: "All Event Types",
     caseStatusHandovers: "Case Status Handovers",
@@ -246,21 +251,140 @@ export const translations = {
     loadingReport: "Loading report...",
     wsLoadingCases: "Loading workspace files...",
     wsNoCasesMatched: "No matching files found.",
+
+    // Investigation Command Center (Sprint 04 / UX Renaissance)
+    cmdTitle: "INVESTIGATION COMMAND CENTER",
+    cmdSubtitle: "Operational Headquarters // Karnataka State Police AI Copilot",
+    cmdShift: "Current Shift",
+    cmdSystemStatus: "System Status",
+    cmdOnline: "Online & Synced",
+    cmdCatalystOffline: "Catalyst DB Offline (Local Fallback)",
+    cmdZoneCritical: "CRITICAL OPERATIONS & ALERTS",
+    cmdZoneTable: "ACTIVE INVESTIGATION QUEUE",
+    cmdZoneSpatial: "SPATIAL INTELLIGENCE RADAR",
+    cmdZoneAiFeed: "AI DISCOVERY & REASONING FEED",
+    cmdZoneGraph: "KNOWLEDGE GRAPH DISCOVERY",
+    cmdZoneCustody: "EVIDENCE CHAIN OF CUSTODY",
+    cmdZoneWorkspace: "OFFICER WORKSPACE & PINNED CASES",
+    cmdZoneAudit: "REAL-TIME OPERATIONAL TIMELINE",
+    cmdZoneEngine: "SYSTEM INTELLIGENCE ENGINES",
+    cmdFirNo: "FIR Number",
+    cmdCategory: "Category",
+    cmdStage: "Investigation Stage",
+    cmdAiConfidence: "AI Confidence",
+    cmdDeadline: "Statutory Deadline",
+    cmdEvidenceCount: "Evidence Count",
+    cmdActions: "Actions",
+    cmdOpenCase: "Open Case Workspace",
+    cmdInspectGraph: "Inspect Knowledge Graph",
+    cmdViewMapDetails: "Focus Incident Coordinates",
+    cmdReviewAiInsight: "Review Discovery Reason",
+    cmdMapTitle: "Bengaluru Metropolitan Jurisdiction Radar",
+    cmdMapHeatmap: "Crime Heatmap",
+    cmdMapHotspots: "Jurisdiction Hotspots",
+    cmdMapMarkers: "Evidence Coordinates",
+    cmdAiReason: "Discovery Rationale",
+    cmdAiSuggestedAction: "Suggested Officer Action",
+
+    // --- Dashboard hardcoded strings ---
+    cmdDayShift: "Day Shift (08:00 – 20:00)",
+    cmdNightShift: "Night Shift (20:00 – 08:00)",
+    cmdCriticalItemsCount: "Critical Items Requiring Attention",
+    cmdAllClear: "All operational channels clear. No high-priority alerts requiring officer review.",
+    cmdStatusNormal: "STATUS NORMAL",
+    cmdOfficerDocket: "Officer Docket",
+    cmdActiveFiles: "Active Files",
+    cmdLoadingQueue: "Loading active operational queue...",
+    cmdRegisterFirstFir: "Register First FIR Record",
+    cmdPriorityHigh: "HIGH",
+    cmdPriorityNormal: "NORMAL",
+    cmdPriorityLabel: "Priority",
+    cmdAiReasoningSubtitle: "Autonomous Intelligence Reasoning · Real-time Discovery",
+    cmdInsightsFlagged: "Insights Flagged",
+    cmdActionLabel: "Action",
+    cmdInspectButton: "Inspect",
+    cmdAuditableLog: "Auditable Log Stream",
+    cmdActivityCreated: "Registered new FIR",
+    cmdActivityStatusChanged: "Updated custody status of",
+    cmdActivityUpdated: "Modified metadata journal of",
+    cmdActivityArchived: "Archived case file",
+    cmdEngineCatalyst: "Catalyst DB Engine",
+    cmdEngineOcr: "OCR Document Engine",
+    cmdEngineGnn: "Graph Neural Network",
+    cmdEngineActive: "ACTIVE",
+    cmdEngineReady: "READY",
+    cmdEngineOptimized: "OPTIMIZED",
+
+    // --- Investigation overview hardcoded strings ---
+    overviewCaseNo: "Case No",
+    overviewFirNo: "FIR No",
+    overviewStation: "Station",
+    overviewNoBriefFacts: "No brief facts logged for this case record.",
+    overviewIncidentStart: "Start",
+    overviewIncidentEnd: "End",
+    overviewLatitude: "Latitude",
+    overviewLongitude: "Longitude",
+
+    // --- Metadata panel hardcoded strings ---
+    metaClassification: "Classification",
+    metaAuditTracking: "Audit Tracking",
+    metaConsoleActions: "Console Actions",
+    metaQuickStatusUpdate: "Quick Status Update",
+    metaStatusUnderInvestigation: "Under Investigation",
+    metaStatusChargeSheeted: "Charge Sheeted",
+    metaStatusClosed: "Closed",
+
+    // --- Timeline hardcoded strings ---
+    timelineNoActivity: "No timeline activity recorded matching selected filter.",
+    timelineOfficerLabel: "Officer",
+    timelineRefLabel: "Ref",
+    timelineSubtitle: "Inspect chronological audit trail of officer entries, custody transfers, and AI suggestions",
+
+    // --- Reports view hardcoded strings ---
+    reportSubtitle: "Compile court-ready official investigation briefing dossier and export PDF/JSON report",
+    reportCompileError: "Unable to compile report for selected case.",
+
+    // --- Officer briefing hardcoded strings ---
+    briefingTitle: "Officer Briefing",
+    briefingPendingAiReview: "Pending AI Review",
+    briefingOutstandingTasks: "Outstanding Tasks",
+
+    // --- Officer profile modal hardcoded strings ---
+    profileTitle: "Officer Security Dossier & Profile",
+    profileVerifiedIo: "VERIFIED IO",
+    profileStationUnit: "Station Unit",
+    profileSecurityClearance: "Security Clearance",
+    profileOfficialEmail: "Official Email",
+    profileEncryptedComms: "Encrypted Comms",
+    profileActiveCommand: "Active Command Operations",
+    profileActiveFirs: "Active FIRs",
+    profileEvidences: "Evidences",
+    profileVerified: "Verified",
+    profileSwitchToKannada: "ಕನ್ನಡಕ್ಕೆ ಬದಲಾಯಿಸಿ",
+    profileSwitchToEnglish: "Switch to English",
+    profileDarkMode: "Dark Mode",
+    profileLightMode: "Light Mode",
   },
   kn: {
     // Auth Screen
-    loginTitle: "ಕೆಎಸ್ಪಿ ತನಿಖಾ ಸಹಾಯಕ",
-    loginSubtitle: "ಕರ್ನಾಟಕ ರಾಜ್ಯ ಪೊಲೀಸ್ ಹ್ಯಾಕಥಾನ್ 2026",
+    loginTitle: "ಕರ್ನಾಟಕ ರಾಜ್ಯ ಪೊಲೀಸ್",
+    loginSubtitle: "AI ತನಿಖಾ ಕನ್ಸೋಲ್",
+    appName: "ತಳವಾರ",
+    appNameKannada: "ತಳವಾರ",
+    securePlatform: "ತಳವಾರ OS // AI ತನಿಖಾ ವೇದಿಕೆ",
     officerSignIn: "ಅಧಿಕಾರಿ ಸೈನ್-ಇನ್",
     kgidLabel: "ಸರ್ಕಾರಿ ಕೆಜಿಐಡಿ ಸಂಖ್ಯೆ",
-    passwordLabel: "ಪಾಸ್ವರ್ಡ್",
+    passwordLabel: "ಪಾಸ್‌ವರ್ಡ್",
     kgidPlaceholder: "ನಿಮ್ಮ 6-ಅಂಕಿಯ ಕೆಜಿಐಡಿ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ",
-    passwordPlaceholder: "ನಿಮ್ಮ ಪಾಸ್ವರ್ಡ್ ನಮೂದಿಸಿ",
+    passwordPlaceholder: "ನಿಮ್ಮ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ",
     loginButton: "ಸೈನ್ ಇನ್",
-    forgotPassword: "ಪಾಸ್ವರ್ಡ್ ಮರೆತಿರಾ? ಐಟಿ ನಿರ್ವಾಹಕರನ್ನು ಸಂಪರ್ಕಿಸಿ.",
+    authorizeConsole: "ಅಧಿಕಾರ ನೀಡಿ ಮತ್ತು ಕನ್ಸೋಲ್ ಪ್ರವೇಶಿಸಿ",
+    headerNodeTitle: "ಕರ್ನಾಟಕ ರಾಜ್ಯ ಪೊಲೀಸ್ // ತಳವಾರ ಇಂಟೆಲಿಜೆನ್ಸ್ ನೋಡ್",
+    quickDemoAccess: "ತ್ವರಿತ ಡೆಮೊ ಪ್ರವೇಶ:",
+    forgotPassword: "ಪಾಸ್‌ವರ್ಡ್ ಮರೆತಿರಾ? ಐಟಿ ನಿರ್ವಾಹಕರನ್ನು ಸಂಪರ್ಕಿಸಿ.",
     requiredKgid: "ಕೆಜಿಐಡಿ ಸಂಖ್ಯೆ ಅಗತ್ಯವಿದೆ",
-    requiredPassword: "ಪಾಸ್ವರ್ಡ್ ಅಗತ್ಯವಿದೆ",
-    invalidCredentials: "ಅಮಾನ್ಯವಾದ ಕೆಜಿಐಡಿ ಸಂಖ್ಯೆ ಅಥವಾ ಪಾಸ್ವರ್ಡ್.",
+    requiredPassword: "ಪಾಸ್‌ವರ್ಡ್ ಅಗತ್ಯವಿದೆ",
+    invalidCredentials: "ಅಮಾನ್ಯವಾದ ಕೆಜಿಐಡಿ ಸಂಖ್ಯೆ ಅಥವಾ ಪಾಸ್‌ವರ್ಡ್.",
     authenticating: "ಅಧಿಕಾರಿ ರುಜುವಾತುಗಳನ್ನು ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ...",
 
     // Layout / Header
@@ -276,7 +400,7 @@ export const translations = {
     navCases: "ಪ್ರಕರಣದ ಕಡತಗಳು",
     navEvidence: "ಪುರಾವೆ ಸಂಗ್ರಹಣೆ",
     navTimeline: "ಪ್ರಕರಣದ ಟೈಮ್‌ಲೈನ್‌ಗಳು",
-    navCopilot: "ಇಂಟೆಲಿಜೆನ್ಸ್ ಕೊಪೈಲಟ್",
+    navCopilot: "ತಳವಾರ ಕೊಪೈಲಟ್",
     navReports: "ವರದಿ ಕನ್ಸೋಲ್",
     navSettings: "ಸಂಯೋಜನೆಗಳು",
 
@@ -305,7 +429,7 @@ export const translations = {
     dashNoPending: "ಯಾವುದೇ ಹೆಚ್ಚಿನ ಆದ್ಯತೆಯ ಎಚ್ಚರಿಕೆಗಳಿಲ್ಲ.",
     dashMyActiveSubtitle: "ನೇರವಾಗಿ ನಿಯೋಜಿಸಲಾದ ತನಿಖಾ ಪ್ರಕರಣಗಳು",
 
-    // Case Workspace Layout (Sprint 2 Left-Center-Right)
+    // Case Workspace Layout
     wsCaseList: "ಸಕ್ರಿಯ ಪ್ರಕರಣಗಳು",
     wsOverview: "ತನಿಖಾ ಅವಲೋಕನ",
     wsMetadata: "ಪ್ರಕರಣದ ವಿವರಗಳು ಮತ್ತು ಕ್ರಮಗಳು",
@@ -422,7 +546,7 @@ export const translations = {
     evAssetDescription: "ಪುರಾವೆಯ ವಿವರಣೆ",
     evRelatedFir: "ಸಂಬಂಧಿತ ಎಫ್ಆಇಆರ್ ಕಡತೆ",
 
-    // Intelligence Engine (Sprint 5)
+    // Intelligence Engine
     intelPanelTitle: "ಬುದ್ಧಿಮಾಂದ್ಯ ವಿಶ್ಲೇಷಣೆ",
     intelAnalyzeBtn: "AI ಸಹಾಯದಿಂದ ವಿಶ್ಲೇಷಿಸಿ",
     intelAnalyzing: "ಬುದ್ಧಿಮಾಂದ್ಯ ಪೈಪ್‌ಲೈನ್ ಚಾಲನೆಗೊಳ್ಳುತ್ತಿದೆ...",
@@ -452,7 +576,6 @@ export const translations = {
     intelRelationsType: "ಸಂಬಂಧ",
     intelErrorFailed: "ಬುದ್ಧಿಮಾಂದ್ಯ ವಿಶ್ಲೇಷಣೆ ವಿಫಲವಾಗಿದೆ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
     intelNoRecord: "ಯಾವ ವಿಶ್ಲೇಷಣೆಯೂ ಲಭ್ಯವಿಲ್ಲ. ಪ್ರಾರಂಭಿಸಲು AI ವಿಶ್ಲೇಷಣೆ ಕ್ಲಿಕ್ ಮಾಡಿ.",
-    // Entity type labels
     entityTypePERSON: "ವ್ಯಕ್ತಿ",
     entityTypePHONE: "ದೂರವಾಣಿ",
     entityTypeVEHICLE: "ವಾಹನ",
@@ -464,7 +587,7 @@ export const translations = {
     entityTypeCURRENCY: "ಕರೆನ್ಸಿ",
     entityTypeIDENTITY_NUMBER: "ಗುರುತಿನ ಸಂಖ್ಯೆ",
 
-    // Sprint 6
+    // Timeline & Reports
     timelineFilterLabel: "ಟೈಮ್‌ಲೈನ್ ಫಿಲ್ಟರ್",
     allEventTypes: "ಎಲ್ಲಾ ಘಟನೆ ವಿಧಗಳು",
     caseStatusHandovers: "ಪ್ರಕರಣದ ಸ್ಥಿತಿ ಹಸ್ತಾಂತರಗಳು",
@@ -492,6 +615,119 @@ export const translations = {
     loadingReport: "ವರದಿ ಲೋಡ್ ಆಗುತ್ತಿದೆ...",
     wsLoadingCases: "ಪ್ರಕರಣಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ...",
     wsNoCasesMatched: "ಯಾವುದೇ ಹೊಂದಾಣಿಕೆಯ ಫೈಲ್‌ಗಳು ಕಂಡುಬಂದಿಲ್ಲ.",
+
+    // Investigation Command Center (Sprint 04 / UX Renaissance)
+    cmdTitle: "ತನಿಖಾ ಕಮಾಂಡ್ ಸೆಂಟರ್",
+    cmdSubtitle: "ಕಾರ್ಯಾಚರಣೆಯ ಪ್ರಧಾನ ಕಚೇರಿ // ಕರ್ನಾಟಕ ರಾಜ್ಯ ಪೊಲೀಸ್ ತಳವಾರ AI ಕನ್ಸೋಲ್",
+    cmdShift: "ಪ್ರಸ್ತುತ ಶಿಫ್ಟ್",
+    cmdSystemStatus: "ವ್ಯವಸ್ಥೆಯ ಸ್ಥಿತಿ",
+    cmdOnline: "ಸಕ್ರಿಯ ಮತ್ತು ಸಿಂಕ್ ಆಗಿದೆ",
+    cmdCatalystOffline: "ಕ್ಯಾಟಲಿಸ್ಟ್ ಡಿಬಿ ಆಫ್‌ಲೈನ್ (ಲೋಕಲ್ ಮೋಡ್)",
+    cmdZoneCritical: "ಸಂಕಷ್ಟ ಮತ್ತು ತುರ್ತು ಕಾರ್ಯಾಚರಣೆಗಳು",
+    cmdZoneTable: "ಸಕ್ರಿಯ ತನಿಖಾ ಪ್ರಕರಣಗಳ ಪಟ್ಟಿ",
+    cmdZoneSpatial: "ಸ್ಥಳೀಯ ತನಿಖಾ ರೇಡಾರ್ (ಸ್ಪೇಷಿಯಲ್ ಎಐ)",
+    cmdZoneAiFeed: "ಎಐ ಸಂಶೋಧನೆ ಮತ್ತು ವಿವರಣೆ ಫೀಡ್",
+    cmdZoneGraph: "ಜ್ಞಾನ ನಕ್ಷೆ ಮತ್ತು ಸಂಬಂಧಗಳ ಜಾಲ",
+    cmdZoneCustody: "ಸಾಕ್ಷ್ಯ ಹಸ್ತಾಂತರ ಪೈಪ್‌ಲೈನ್",
+    cmdZoneWorkspace: "ಅಧಿಕಾರಿ ಕಾರ್ಯಕ್ಷೇತ್ರ ಮತ್ತು ಪ್ರಮುಖ ಪ್ರಕರಣಗಳು",
+    cmdZoneAudit: "ನೈಜ-ಸಮಯದ ಕಾರ್ಯಾಚರಣೆಯ ಟೈಮ್‌ಲೈನ್",
+    cmdZoneEngine: "ವ್ಯವಸ್ಥೆಯ ಇಂಟೆಲಿಜೆನ್ಸ್ ಇಂಜಿನ್‌ಗಳು",
+    cmdFirNo: "ಎಫ್‌ಐಆರ್ ಸಂಖ್ಯೆ",
+    cmdCategory: "ಪ್ರಕರಣದ ವರ್ಗ",
+    cmdStage: "ತನಿಖೆಯ ಹಂತ",
+    cmdAiConfidence: "ಎಐ ವಿಶ್ವಾಸ ಮಟ್ಟ",
+    cmdDeadline: "ಕಾನೂನು ಗಡುವು",
+    cmdEvidenceCount: "ಸಾಕ್ಷ್ಯಗಳ ಸಂಖ್ಯೆ",
+    cmdActions: "ಕ್ರಮಗಳು",
+    cmdOpenCase: "ಪ್ರಕರಣದ ಕಾರ್ಯಕ್ಷೇತ್ರ ತೆರೆಯಿರಿ",
+    cmdInspectGraph: "ಜ್ಞಾನ ನಕ್ಷೆ ಪರಿಶೀಲಿಸಿ",
+    cmdViewMapDetails: "ಸ್ಥಳದ ನಿರ್ದೇಶಾಂಕಗಳನ್ನು ಪರಿಶೀಲಿಸಿ",
+    cmdReviewAiInsight: "ಎಐ ಆವಿಷ್ಕಾರ ಪರಿಶೀಲಿಸಿ",
+    cmdMapTitle: "ಬೆಂಗಳೂರು ಮಹಾನಗರ ಪೊಲೀಸ್ ವಲಯ ರೇಡಾರ್",
+    cmdMapHeatmap: "ಅಪರಾಧದ ಹೀಟ್‌ಮ್ಯಾಪ್",
+    cmdMapHotspots: "ಅಪರಾಧ ಪ್ರದೇಶಗಳು",
+    cmdMapMarkers: "ಸಾಕ್ಷ್ಯ ಸ್ಥಳಗಳು",
+    cmdAiReason: "ಆವಿಷ್ಕಾರಕ್ಕೆ ಕಾರಣ",
+    cmdAiSuggestedAction: "ಶಿಫಾರಸು ಮಾಡಿದ ಕ್ರಮ",
+
+    // --- Dashboard hardcoded strings ---
+    cmdDayShift: "ಹಗಲು ಶಿಫ್ಟ್ (08:00 – 20:00)",
+    cmdNightShift: "ರಾತ್ರಿ ಶಿಫ್ಟ್ (20:00 – 08:00)",
+    cmdCriticalItemsCount: "ತುರ್ತು ಗಮನ ಅಗತ್ಯವಿರುವ ನಮೂದುಗಳು",
+    cmdAllClear: "ಎಲ್ಲಾ ಕಾರ್ಯಾಚರಣೆ ಚಾನೆಲ್‌ಗಳು ಸಾಮಾನ್ಯ. ಯಾವ ತುರ್ತು ಎಚ್ಚರಿಕೆಯೂ ಇಲ್ಲ.",
+    cmdStatusNormal: "ಸ್ಥಿತಿ ಸಾಮಾನ್ಯ",
+    cmdOfficerDocket: "ಅಧಿಕಾರಿ ಡಾಕೆಟ್",
+    cmdActiveFiles: "ಸಕ್ರಿಯ ಕಡತಗಳು",
+    cmdLoadingQueue: "ಸಕ್ರಿಯ ತನಿಖಾ ಪ್ರಕರಣ ಪಟ್ಟಿ ಲೋಡ್ ಆಗುತ್ತಿದೆ...",
+    cmdRegisterFirstFir: "ಮೊದಲ ಎಫ್‌ಐಆರ್ ನೋಂದಾಯಿಸಿ",
+    cmdPriorityHigh: "ಅಧಿಕ",
+    cmdPriorityNormal: "ಸಾಮಾನ್ಯ",
+    cmdPriorityLabel: "ಆದ್ಯತೆ",
+    cmdAiReasoningSubtitle: "ಸ್ವಾಯತ್ತ ಇಂಟೆಲಿಜೆನ್ಸ್ ತಾರ್ಕಿಕತೆ · ನೈಜ-ಸಮಯ ಆವಿಷ್ಕಾರ",
+    cmdInsightsFlagged: "ಒಳನೋಟಗಳು ಗುರುತಿಸಲ್ಪಟ್ಟಿವೆ",
+    cmdActionLabel: "ಕ್ರಮ",
+    cmdInspectButton: "ಪರಿಶೀಲಿಸಿ",
+    cmdAuditableLog: "ಲೆಕ್ಕಪರಿಶೋಧ್ಯ ದಾಖಲಾ ಸ್ಟ್ರೀಮ್",
+    cmdActivityCreated: "ಹೊಸ ಎಫ್‌ಐಆರ್ ನೋಂದಾಯಿಸಲಾಗಿದೆ",
+    cmdActivityStatusChanged: "ಸ್ವಾಧೀನ ಸ್ಥಿತಿ ಬದಲಾಯಿಸಲಾಗಿದೆ",
+    cmdActivityUpdated: "ಮೆಟಾಡೇಟಾ ಜರ್ನಲ್ ಮಾರ್ಪಡಿಸಲಾಗಿದೆ",
+    cmdActivityArchived: "ಪ್ರಕರಣದ ಕಡತ ಆರ್ಕೈವ್ ಮಾಡಲಾಗಿದೆ",
+    cmdEngineCatalyst: "ಕ್ಯಾಟಲಿಸ್ಟ್ ಡಿಬಿ ಇಂಜಿನ್",
+    cmdEngineOcr: "OCR ದಾಖಲೆ ಇಂಜಿನ್",
+    cmdEngineGnn: "ಗ್ರಾಫ್ ನ್ಯೂರಲ್ ನೆಟ್‌ವರ್ಕ್",
+    cmdEngineActive: "ಸಕ್ರಿಯ",
+    cmdEngineReady: "ಸಿದ್ಧ",
+    cmdEngineOptimized: "ಅತ್ಯುತ್ತಮ",
+
+    // --- Investigation overview hardcoded strings ---
+    overviewCaseNo: "ಪ್ರಕರಣ ಸಂಖ್ಯೆ",
+    overviewFirNo: "ಎಫ್‌ಐಆರ್ ಸಂಖ್ಯೆ",
+    overviewStation: "ಠಾಣೆ",
+    overviewNoBriefFacts: "ಈ ಪ್ರಕರಣಕ್ಕೆ ಯಾವ ಸಂಗತಿ ಸಾರಾಂಶವೂ ದಾಖಲಾಗಿಲ್ಲ.",
+    overviewIncidentStart: "ಪ್ರಾರಂಭ",
+    overviewIncidentEnd: "ಮುಕ್ತಾಯ",
+    overviewLatitude: "ಅಕ್ಷಾಂಶ",
+    overviewLongitude: "ರೇಖಾಂಶ",
+
+    // --- Metadata panel hardcoded strings ---
+    metaClassification: "ವರ್ಗೀಕರಣ",
+    metaAuditTracking: "ಲೆಕ್ಕಪರಿಶೋಧನೆ ಟ್ರ್ಯಾಕಿಂಗ್",
+    metaConsoleActions: "ಕನ್ಸೋಲ್ ಕ್ರಮಗಳು",
+    metaQuickStatusUpdate: "ತ್ವರಿತ ಸ್ಥಿತಿ ನವೀಕರಣ",
+    metaStatusUnderInvestigation: "ತನಿಖಾಧೀನ",
+    metaStatusChargeSheeted: "ಚಾರ್ಜ್‌ಶೀಟ್ ಸಲ್ಲಿಕೆ",
+    metaStatusClosed: "ಮುಕ್ತಾಯ",
+
+    // --- Timeline hardcoded strings ---
+    timelineNoActivity: "ಆಯ್ಕೆ ಮಾಡಿದ ಫಿಲ್ಟರ್‌ಗೆ ಯಾವ ಟೈಮ್‌ಲೈನ್ ಚಟುವಟಿಕೆಯೂ ದಾಖಲಾಗಿಲ್ಲ.",
+    timelineOfficerLabel: "ಅಧಿಕಾರಿ",
+    timelineRefLabel: "ಉಲ್ಲೇಖ",
+    timelineSubtitle: "ಅಧಿಕಾರಿ ನಮೂದುಗಳು, ಸ್ವಾಧೀನ ಹಸ್ತಾಂತರಗಳು ಮತ್ತು AI ಸಲಹೆಗಳ ಕಾಲಾನುಕ್ರಮ ಲೆಕ್ಕಪರಿಶೋಧ್ಯ ದಾಖಲೆಯನ್ನು ಪರಿಶೀಲಿಸಿ",
+
+    // --- Reports view hardcoded strings ---
+    reportSubtitle: "ನ್ಯಾಯಾಲಯ-ಸಿದ್ಧ ಅಧಿಕೃತ ತನಿಖಾ ದಾಖಲೆ ಮಾಡಿ ಮತ್ತು PDF/JSON ವರದಿ ರಫ್ತು ಮಾಡಿ",
+    reportCompileError: "ಆಯ್ಕೆ ಮಾಡಿದ ಪ್ರಕರಣಕ್ಕೆ ವರದಿ ಸಂಕಲಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.",
+
+    // --- Officer briefing hardcoded strings ---
+    briefingTitle: "ಅಧಿಕಾರಿ ಮಾಹಿತಿ",
+    briefingPendingAiReview: "ಬಾಕಿ AI ಪರಿಶೀಲನೆ",
+    briefingOutstandingTasks: "ಬಾಕಿ ಉಳಿದ ಕಾರ್ಯಗಳು",
+
+    // --- Officer profile modal hardcoded strings ---
+    profileTitle: "ಅಧಿಕಾರಿ ಭದ್ರತಾ ಡಾಸಿಯರ್ ಮತ್ತು ಪ್ರೊಫೈಲ್",
+    profileVerifiedIo: "ಪರಿಶೀಲಿತ ತನಿಖಾಧಿಕಾರಿ",
+    profileStationUnit: "ಠಾಣೆ ಘಟಕ",
+    profileSecurityClearance: "ಭದ್ರತಾ ಮಂಜೂರಾತಿ",
+    profileOfficialEmail: "ಅಧಿಕೃತ ಇಮೇಲ್",
+    profileEncryptedComms: "ಸಂಕೇತಿತ ಸಂವಹನ",
+    profileActiveCommand: "ಸಕ್ರಿಯ ಕಾರ್ಯಾಚರಣೆಗಳು",
+    profileActiveFirs: "ಸಕ್ರಿಯ ಎಫ್‌ಐಆರ್‌ಗಳು",
+    profileEvidences: "ಪುರಾವೆಗಳು",
+    profileVerified: "ಪರಿಶೀಲಿತ",
+    profileSwitchToKannada: "ಕನ್ನಡಕ್ಕೆ ಬದಲಾಯಿಸಿ",
+    profileSwitchToEnglish: "ಇಂಗ್ಲಿಷ್‌ಗೆ ಬದಲಾಯಿಸಿ",
+    profileDarkMode: "ಡಾರ್ಕ್ ಮೋಡ್",
+    profileLightMode: "ಲೈಟ್ ಮೋಡ್",
   },
 };
 

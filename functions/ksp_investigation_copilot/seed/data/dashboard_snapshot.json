@@ -1,0 +1,27 @@
+{
+  "generatedAt": "2026-07-19T14:12:50.166Z",
+  "metrics": {
+    "todayCases": 5,
+    "highRiskCases": 4,
+    "pendingReviews": 13,
+    "solvedCases": 0,
+    "recoveredEvidence": 23,
+    "openFirs": 5,
+    "hotspotsCount": 6,
+    "districtJurisdictions": 2
+  },
+  "alerts": [
+    {
+      "id": 1,
+      "type": "CROSS_CASE_ALERT",
+      "message": "Burner SIM 9876543210 linked to Cyber Fraud Case Alpha & Narcotics Case Bravo.",
+      "severity": "CRITICAL"
+    },
+    {
+      "id": 2,
+      "type": "CROSS_CASE_ALERT",
+      "message": "Suspect Vehicle KA-01-ME-1234 logged at border checkpost and crime scenes.",
+      "severity": "HIGH"
+    }
+  ]
+}

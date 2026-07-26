@@ -4,6 +4,16 @@ import { useState, useEffect, useCallback } from "react";
 import { CaseDetailsUI, CaseStatus, CasePriority, CaseMaster, InvestigationNote } from "../types";
 import { CaseService, DashboardMetrics, ActivityLog } from "../services/case-service";
 import { useAuth } from "@/features/auth/auth-context";
+import { 
+  CaseRepository, 
+  LookupsPayload,
+  MOCK_CATEGORIES,
+  MOCK_GRAVITY,
+  MOCK_CRIME_HEADS,
+  MOCK_CRIME_SUB_HEADS,
+  MOCK_UNITS,
+  MOCK_EMPLOYEES 
+} from "../repositories/case-repository";
 
 export function useCases() {
   const { user } = useAuth();
@@ -18,12 +28,40 @@ export function useCases() {
   });
   const [activities, setActivities] = useState<ActivityLog[]>([]);
   
+  // Stateful lookups initialized with static fallbacks
+  const [lookupData, setLookupData] = useState<LookupsPayload>({
+    categories: MOCK_CATEGORIES,
+    gravities: MOCK_GRAVITY,
+    crimeHeads: MOCK_CRIME_HEADS,
+    crimeSubHeads: MOCK_CRIME_SUB_HEADS,
+    units: MOCK_UNITS,
+    employees: MOCK_EMPLOYEES
+  });
+
   // Case-specific timeline & notes states
   const [activeNotes, setActiveNotes] = useState<InvestigationNote[]>([]);
   const [activeActivity, setActiveActivity] = useState<ActivityLog[]>([]);
   
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Load lookups from live database on mount
+  useEffect(() => {
+    let active = true;
+    CaseRepository.getLookups()
+      .then((data) => {
+        if (active && data) {
+          setLookupData(data);
+        }
+      })
+      .catch((err) => {
+        console.warn("Failed to load live database lookups, falling back to static:", err.message);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const fetchCasesData = useCallback(async (query: string = "", filters?: {
     status?: CaseStatus;
@@ -47,9 +85,10 @@ export function useCases() {
       const highAlerts = await CaseService.getHighPriorityAlerts();
       setHighPriorityAlerts(highAlerts);
       
-      const logs = CaseService.getRecentActivity();
+      const logs = await CaseService.getRecentActivity();
       setActivities(logs);
-    } catch {
+    } catch (err: any) {
+      console.error("fetchCasesData error:", err);
       setError("Failed to fetch cases data.");
     } finally {
       setIsLoading(false);
@@ -70,7 +109,7 @@ export function useCases() {
       const notes = await CaseService.getNotesForCase(caseId);
       setActiveNotes(notes);
 
-      const timeline = CaseService.getCaseActivity(caseId);
+      const timeline = await CaseService.getCaseActivity(caseId);
       setActiveActivity(timeline);
     } catch {
       setError("Failed to fetch note audits or activities.");
@@ -178,8 +217,6 @@ export function useCases() {
       return false;
     }
   };
-
-  const lookupData = CaseService.getLookupData();
 
   return {
     cases,

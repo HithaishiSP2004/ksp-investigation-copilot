@@ -1,0 +1,1 @@
+KSP SOP-CYBER-01: In case of phishing or digital financial scams, immediately notify banks to freeze destination beneficiary accounts. Secure mule UPI IDs and trace access IP logs. Search for active burner SIM cards and check tower pings for location clusters.

@@ -41,8 +41,13 @@ catalyst-debug.log
 *.tsbuildinfo
 next-env.d.ts
 
-# build artifacts
+# build artifacts & deployment zips
 out.zip
+talaari-deploy.zip
+*.zip
+
+# Zoho Catalyst build output
+.build/
 
 # AI agent instruction files (development only)
 AGENTS.md
@@ -57,3 +62,19 @@ Implentation-plan-changes.md
 
 # AI development prompts (internal)
 docs/prompts/
+
+# Audit & internal analysis reports (not for repo)
+CONNECTIVITY_AUDIT.md
+DATABASE_AUDIT_REPORT.md
+FINAL_CATALYST_DATABASE_BLUEPRINT.md
+INTEGRATION_VERIFICATION.md
+SCHEMA_COMPARISON_REPORT.md
+inspect_out.json
+"Catalyst Database Synchronization & Deployment Package.md"
+
+# Stray SVG / image files at root (public/ is the right place)
+Seal_of_Karnataka.svg
+logo-datathon (2).png
+karnataka map_uuid_*.svg
+karnataka map_uuid_*.png
+Catalyst Database Synchronization*.md

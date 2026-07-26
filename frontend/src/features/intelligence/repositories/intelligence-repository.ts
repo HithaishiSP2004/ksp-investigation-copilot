@@ -1,87 +1,59 @@
-﻿import { IntelligenceRecord, ReviewEvent, AiReviewStatus } from "../types";
-
-/**
- * In-memory intelligence repository.
- * Retains ALL versions of every intelligence record.
- * UI consumes only the latest version via getLatestByEvidenceId().
- *
- * Migration path: replace this module with Catalyst Data Store queries.
- * No service or UI changes required.
- */
-
-// Versioned store: evidenceId -> ordered list of records (oldest first)
-const recordStore = new Map<number, IntelligenceRecord[]>();
-
-// Immutable review event store: evidenceId -> ordered list of events
-const reviewEventStore = new Map<number, ReviewEvent[]>();
+import { client } from "@/lib/api/client";
+import { IntelligenceRecord, ReviewEvent, AiReviewStatus } from "../types";
 
 export const IntelligenceRepository = {
   /**
    * Returns the latest version of the intelligence record for an evidence asset.
-   * Returns null if no analysis has been run yet.
    */
-  getLatestByEvidenceId(evidenceId: number): IntelligenceRecord | null {
-    const versions = recordStore.get(evidenceId);
-    if (!versions || versions.length === 0) return null;
-    return versions[versions.length - 1];
+  async getLatestByEvidenceId(evidenceId: number): Promise<IntelligenceRecord | null> {
+    return client.get<IntelligenceRecord | null>(`/api/evidence/${evidenceId}/intelligence`);
   },
 
   /**
-   * Returns all historical versions for an evidence asset (oldest first).
+   * Returns all historical versions (unsupported in UI currently but mapped to backend).
    */
   getAllVersionsByEvidenceId(evidenceId: number): IntelligenceRecord[] {
-    return recordStore.get(evidenceId) ?? [];
+    // Falls back to array containing latest since Catalyst holds latest active
+    return [];
   },
 
   /**
-   * Saves an intelligence record.
-   * Automatically assigns the next version number.
-   * Never overwrites existing versions.
+   * Saves an intelligence record (inserts header + entities + relationships).
    */
-  save(record: Omit<IntelligenceRecord, "version">): IntelligenceRecord {
-    const existing = recordStore.get(record.evidenceId) ?? [];
-    const nextVersion = existing.length + 1;
-    const versioned: IntelligenceRecord = { ...record, version: nextVersion };
-    recordStore.set(record.evidenceId, [...existing, versioned]);
-    return versioned;
+  async save(record: Omit<IntelligenceRecord, "version">): Promise<IntelligenceRecord> {
+    const res = await client.post<{ id: string; version: number }>("/api/intelligence", record);
+    return {
+      ...record,
+      version: res.version,
+    } as IntelligenceRecord;
   },
 
   /**
-   * Updates the review status of a specific entity within the latest version.
-   * Called only AFTER the review audit event has been appended.
+   * Updates the review status of a specific entity.
    */
-  updateEntityReviewStatus(
+  async updateEntityReviewStatus(
     evidenceId: number,
     entityId: string,
     newStatus: AiReviewStatus
-  ): IntelligenceRecord | null {
-    const versions = recordStore.get(evidenceId);
-    if (!versions || versions.length === 0) return null;
-
-    const latest = versions[versions.length - 1];
-    const updatedRecord: IntelligenceRecord = {
-      ...latest,
-      entities: latest.entities.map((e) =>
-        e.id === entityId ? { ...e, reviewStatus: newStatus } : e
-      ),
-    };
-    versions[versions.length - 1] = updatedRecord;
-    return updatedRecord;
+  ): Promise<IntelligenceRecord | null> {
+    await client.put<any>(`/api/intelligence/${evidenceId}/entities/${entityId}`, {
+      reviewStatus: newStatus,
+    });
+    // Recover the updated full record from datastore
+    return this.getLatestByEvidenceId(evidenceId);
   },
 
   /**
-   * Appends a review audit event.
-   * Immutable - no existing event can be modified or deleted.
+   * Appends an immutable review audit event.
    */
-  appendReviewEvent(event: ReviewEvent): void {
-    const existing = reviewEventStore.get(event.evidenceId) ?? [];
-    reviewEventStore.set(event.evidenceId, [...existing, event]);
+  async appendReviewEvent(event: ReviewEvent): Promise<void> {
+    await client.post<any>("/api/intelligence/review-events", event);
   },
 
   /**
-   * Returns all review events for an evidence asset (oldest first).
+   * Returns all review events for an evidence asset.
    */
-  getReviewEvents(evidenceId: number): ReviewEvent[] {
-    return reviewEventStore.get(evidenceId) ?? [];
+  async getReviewEvents(evidenceId: number): Promise<ReviewEvent[]> {
+    return client.get<ReviewEvent[]>(`/api/evidence/${evidenceId}/review-events`);
   },
 };

@@ -13,7 +13,7 @@ export function ActivityPanel({ activities }: ActivityPanelProps) {
   const { t } = useLocale();
 
   return (
-    <div className="border border-border rounded-xl bg-card overflow-hidden">
+    <div className="border border-border rounded-xl bg-card overflow-hidden shrink-0">
       {/* Header bar */}
       <div className="p-4 bg-muted/10 border-b border-border flex items-center gap-2">
         <History className="h-4 w-4 text-primary" />

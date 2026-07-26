@@ -171,7 +171,7 @@ export function CaseWorkspace({ initialSelectedCaseId, onClearNavigation, onSele
         <div className="flex-1 flex flex-col md:flex-row gap-6 bg-card border border-border rounded-xl overflow-hidden shadow-sm h-full">
           
           {/* CENTER PANEL: Case Details & Sub-panels */}
-          <div className="flex-1 flex flex-col p-6 min-w-0 border-b md:border-b-0 md:border-r border-border overflow-y-auto h-full space-y-6">
+          <div className="flex-1 min-w-0 border-b md:border-b-0 md:border-r border-border overflow-y-auto h-full p-6 space-y-6 pb-16">
             
             {/* Overview Detail Information */}
             <InvestigationOverview caseRecord={selectedCase} />

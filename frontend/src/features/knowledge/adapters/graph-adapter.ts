@@ -44,9 +44,9 @@ export class SimpleSvgGraphAdapter implements GraphAdapter {
 
     const nodeColors: Record<string, string> = {
       CASE: "#3b82f6", // Blue
-      PERSON: "#ef4444", // Red
-      EVIDENCE: "#10b981", // Green
-      ENTITY: "#8b5cf6", // Purple
+      PERSON: "#f43f5e", // Rose
+      EVIDENCE: "#10b981", // Emerald
+      ENTITY: "#a855f7", // Purple
     };
 
     const nodeSizes: Record<string, number> = {
@@ -56,11 +56,17 @@ export class SimpleSvgGraphAdapter implements GraphAdapter {
       ENTITY: 18,
     };
 
-    // Calculate layout coordinates deterministically
-    const renderNodes: RenderNode[] = [];
-    const nodeIndex = new Map<string, number>();
+    const personNodes = nodes.filter(n => n.type === "PERSON");
+    const evidenceNodes = nodes.filter(n => n.type === "EVIDENCE");
+    const entityNodes = nodes.filter(n => n.type === "ENTITY");
 
-    nodes.forEach((node, idx) => {
+    let personIndex = 0;
+    let evidenceIndex = 0;
+    let entityIndex = 0;
+
+    const renderNodes: RenderNode[] = [];
+
+    nodes.forEach((node) => {
       let x = cx;
       let y = cy;
 
@@ -68,28 +74,26 @@ export class SimpleSvgGraphAdapter implements GraphAdapter {
         x = cx;
         y = cy;
       } else if (node.type === "PERSON") {
-        // middle ring
-        const angle = (idx * 2 * Math.PI) / Math.max(nodes.length - 1, 1);
-        x = cx + 130 * Math.cos(angle);
-        y = cy + 130 * Math.sin(angle);
+        // Space person nodes on inner ring (radius 210px) with 45-degree angle offset
+        const total = Math.max(personNodes.length, 1);
+        const angle = (personIndex * 2 * Math.PI) / total + Math.PI / 4;
+        x = cx + 210 * Math.cos(angle);
+        y = cy + 180 * Math.sin(angle);
+        personIndex++;
       } else if (node.type === "EVIDENCE") {
-        // outer ring
-        const angle = (idx * 2 * Math.PI) / Math.max(nodes.length - 1, 1) + Math.PI / 4;
-        x = cx + 220 * Math.cos(angle);
+        // Space evidence nodes on middle ring (radius 300px)
+        const total = Math.max(evidenceNodes.length, 1);
+        const angle = (evidenceIndex * 2 * Math.PI) / total - Math.PI / 3;
+        x = cx + 300 * Math.cos(angle);
         y = cy + 220 * Math.sin(angle);
+        evidenceIndex++;
       } else if (node.type === "ENTITY") {
-        // branch off parent evidence if possible, otherwise random outer ring
-        const parentLink = links.find((l) => l.target === node.id && l.relationshipType === "EXTRACTED_FROM");
-        if (parentLink) {
-          const parentIdx = nodes.findIndex((n) => n.id === parentLink.source);
-          const angle = (parentIdx * 2 * Math.PI) / Math.max(nodes.length - 1, 1) + (idx * Math.PI) / 8;
-          x = cx + 300 * Math.cos(angle);
-          y = cy + 300 * Math.sin(angle);
-        } else {
-          const angle = (idx * 2 * Math.PI) / Math.max(nodes.length - 1, 1) + Math.PI / 3;
-          x = cx + 280 * Math.cos(angle);
-          y = cy + 280 * Math.sin(angle);
-        }
+        // Space entity nodes on outer ring (radius 380px)
+        const total = Math.max(entityNodes.length, 1);
+        const angle = (entityIndex * 2 * Math.PI) / total + Math.PI / 6;
+        x = cx + 380 * Math.cos(angle);
+        y = cy + 260 * Math.sin(angle);
+        entityIndex++;
       }
 
       renderNodes.push({
@@ -99,12 +103,10 @@ export class SimpleSvgGraphAdapter implements GraphAdapter {
         x,
         y,
         size: nodeSizes[node.type] || 20,
-        color: nodeColors[node.type] || "#6b7280",
+        color: nodeColors[node.type] || "#71717a",
         description: node.description,
         metadata: node.metadata,
       });
-
-      nodeIndex.set(node.id, renderNodes.length - 1);
     });
 
     const renderLinks: RenderLink[] = [];

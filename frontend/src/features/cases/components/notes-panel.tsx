@@ -77,7 +77,7 @@ export function NotesPanel({ notes, onAddNote, onUpdateNote, onDeleteNote }: Not
   };
 
   return (
-    <div className="border border-border rounded-xl bg-card overflow-hidden">
+    <div className="border border-border rounded-xl bg-card overflow-hidden shrink-0">
       {/* Header bar */}
       <div className="p-4 bg-muted/10 border-b border-border flex items-center gap-2">
         <Notebook className="h-4 w-4 text-primary" />

@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { useAuth } from "@/features/auth/auth-context";
 import { useLocale } from "@/lib/locales-provider";
 import { Button } from "@/components/ui/button";
+import { OfficerProfileModal } from "./officer-profile-modal";
 import {
-  Shield,
   LayoutDashboard,
   FolderOpen,
   FileText,
@@ -19,7 +20,8 @@ import {
   Languages,
   Menu,
   X,
-  Bell
+  Bell,
+  UserCheck
 } from "lucide-react";
 
 interface LayoutShellProps {
@@ -33,6 +35,7 @@ export function LayoutShell({ children, activeTab = "dashboard", onTabChange }: 
   const { t, locale, setLocale } = useLocale();
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [profileOpen, setProfileOpen] = useState(false);
 
   // Initialize theme from localStorage/system preference
   useEffect(() => {
@@ -66,6 +69,10 @@ export function LayoutShell({ children, activeTab = "dashboard", onTabChange }: 
     setLocale(locale === "en" ? "kn" : "en");
   };
 
+  const isKannada = locale === "kn";
+  const appName = isKannada ? "ತಳವಾರ" : "TALAARI";
+  const appSubtitle = isKannada ? "AI ತನಿಖಾ ಕನ್ಸೋಲ್" : "AI INVESTIGATION CONSOLE";
+
   const navItems = [
     { id: "dashboard", label: t("navDashboard"), icon: LayoutDashboard },
     { id: "cases", label: t("navCases"), icon: FolderOpen },
@@ -92,14 +99,24 @@ export function LayoutShell({ children, activeTab = "dashboard", onTabChange }: 
         }`}
       >
         {/* Sidebar Header Brand */}
-        <div className="flex h-16 items-center gap-3 px-6 border-b border-border">
-          <Shield className="h-6 w-6 text-primary" />
-          <div>
-            <h1 className="font-bold text-sm leading-none tracking-tight text-foreground">
-              KSP COPILOT
+        <div className="flex h-16 items-center gap-3 px-5 border-b border-border">
+          <div className="relative h-9 w-9 shrink-0 flex items-center justify-center">
+            <Image
+              src="/talaari-logo.png"
+              alt="TALAARI Official Logo"
+              width={36}
+              height={36}
+              priority
+              style={{ width: "auto", height: "auto" }}
+              className="object-contain drop-shadow-sm"
+            />
+          </div>
+          <div className="flex flex-col min-w-0">
+            <h1 className="font-serif font-extrabold text-base leading-none tracking-wider bg-gradient-to-b from-amber-200 via-amber-400 to-amber-600 bg-clip-text text-transparent truncate uppercase">
+              {appName}
             </h1>
-            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">
-              {t("officerBadge")}
+            <span className="text-[9.5px] font-bold text-muted-foreground uppercase tracking-wider font-mono pt-1 truncate">
+              {appSubtitle}
             </span>
           </div>
         </div>
@@ -122,23 +139,29 @@ export function LayoutShell({ children, activeTab = "dashboard", onTabChange }: 
           ))}
         </nav>
 
-        {/* Sidebar Footer User Info */}
+        {/* Sidebar Footer User Profile Button */}
         {user && (
-          <div className="p-4 border-t border-border bg-muted/30">
-            <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-primary font-bold text-sm">
+          <div className="p-3 border-t border-border bg-muted/30">
+            <button
+              onClick={() => setProfileOpen(true)}
+              className="flex w-full items-center gap-3 p-2 rounded-lg hover:bg-muted/80 transition-colors text-left group cursor-pointer border border-transparent hover:border-border"
+              title={t("profileTitle")}
+            >
+              <div className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary font-extrabold text-sm ring-1 ring-primary/30 group-hover:scale-105 transition-transform">
                 {user.firstName[0]}
                 {user.lastName[0]}
+                <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-card" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-bold text-foreground truncate">
+                <p className="text-xs font-bold text-foreground group-hover:text-primary transition-colors truncate">
                   {user.firstName} {user.lastName}
                 </p>
                 <p className="text-[10px] text-muted-foreground truncate leading-none mt-0.5">
                   {t(user.role === "investigator" ? "roleInvestigator" : "roleSuperintendent")}
                 </p>
               </div>
-            </div>
+              <UserCheck className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
+            </button>
           </div>
         )}
       </aside>
@@ -169,7 +192,7 @@ export function LayoutShell({ children, activeTab = "dashboard", onTabChange }: 
             </div>
           </div>
 
-          {/* Action Tools (Language, Theme, Notification, Logout) */}
+          {/* Action Tools (Language, Theme, Notification, Profile, Logout) */}
           <div className="flex items-center gap-2">
             {/* Language Selection */}
             <Button
@@ -212,6 +235,17 @@ export function LayoutShell({ children, activeTab = "dashboard", onTabChange }: 
 
             <div className="h-5 w-px bg-border mx-1" />
 
+            {/* Officer Profile Modal Toggle */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setProfileOpen(true)}
+              title={t("profileTitle")}
+              className="h-9 w-9 rounded-md hover:bg-primary/10 hover:text-primary"
+            >
+              <UserCheck className="h-4 w-4" />
+            </Button>
+
             {/* Logout Tool */}
             <Button
               variant="ghost"
@@ -231,6 +265,14 @@ export function LayoutShell({ children, activeTab = "dashboard", onTabChange }: 
           {children}
         </main>
       </div>
+
+      {/* Interactive Officer Profile Modal */}
+      <OfficerProfileModal
+        isOpen={profileOpen}
+        onClose={() => setProfileOpen(false)}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+      />
     </div>
   );
 }

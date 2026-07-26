@@ -174,7 +174,7 @@ export function CaseNavigator({
                   {c.briefFacts}
                 </p>
                 <div className="flex justify-between items-center text-[9px] text-muted-foreground font-semibold mt-2.5">
-                  <span className="capitalize">{c.caseStatus.toLowerCase().replace("_", " ")}</span>
+                  <span className="capitalize">{(c.caseStatus || "UNDER_INVESTIGATION").toLowerCase().replace(/_/g, " ")}</span>
                   <span>{new Date(c.crimeRegisteredDate).toLocaleDateString()}</span>
                 </div>
               </div>

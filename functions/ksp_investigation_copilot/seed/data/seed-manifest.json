@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "date": "2026-07-19T14:12:50.166Z",
+  "profile": "demo",
+  "counts": {
+    "CaseCategory": 5,
+    "GravityOffence": 5,
+    "CrimeHead": 7,
+    "CrimeSubHead": 14,
+    "Unit": 25,
+    "Employee": 60,
+    "CaseMaster": 5,
+    "Victim": 10,
+    "Suspect": 10,
+    "EvidenceMaster": 23,
+    "CustodyEvent": 20,
+    "InvestigationNote": 20,
+    "ActivityLog": 0
+  },
+  "features": {
+    "knowledgeBase": "READY",
+    "voiceTelemetry": "READY",
+    "crossCaseAnalytics": "INACTIVE",
+    "judgeMode": "ENABLED"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "name": "KSP SOPs and Legal Codes (BNS/IPC)",
+  "language": "en",
+  "files": [
+    "sop_cyber_fraud.txt",
+    "bns_section_111.txt",
+    "sop_digital_seizure.txt",
+    "sop_narcotics_seizure.txt",
+    "copilot_rag_qa.txt"
+  ]
+}

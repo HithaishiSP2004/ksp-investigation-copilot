@@ -26,71 +26,121 @@
   --radius-sm: calc(var(--radius) - 4px);
 }
 
+/* ─── CONCEPT A: GOVERNMENT INTELLIGENCE OS DESIGN TOKENS ─── */
+
 :root {
+  /* Light Mode Palette (State Office / High Daylight) */
   --background: #f8fafc;
   --foreground: #0f172a;
   --card: #ffffff;
   --card-foreground: #0f172a;
   --popover: #ffffff;
   --popover-foreground: #0f172a;
-  --primary: #1e3a8a;
+  --primary: #1d4ed8;
   --primary-foreground: #ffffff;
-  --secondary: #e2e8f0;
+  --secondary: #f1f5f9;
   --secondary-foreground: #334155;
   --muted: #f1f5f9;
   --muted-foreground: #64748b;
-  --accent: #f59e0b;
-  --accent-foreground: #1e293b;
-  --destructive: #ef4444;
+  --accent: #b45309;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
   --destructive-foreground: #ffffff;
   --border: #cbd5e1;
-  --input: #e2e8f0;
-  --ring: #1e3a8a;
-  --radius: 0.5rem;
+  --input: #cbd5e1;
+  --ring: #1d4ed8;
+  --radius: 0.375rem;
+
+  /* Specific Concept A KSP Design Tokens */
+  --ksp-bg-base: #f8fafc;
+  --ksp-bg-surface: #ffffff;
+  --ksp-bg-elevated: #f1f5f9;
+  --ksp-border-subtle: #e2e8f0;
+  --ksp-border-strong: #cbd5e1;
+  --ksp-text-primary: #0f172a;
+  --ksp-text-secondary: #475569;
+  --ksp-text-muted: #64748b;
+  --ksp-police-blue: #1d4ed8;
+  --ksp-gold-accent: #b45309;
 }
 
 .dark {
-  --background: #0b0f19;
-  --foreground: #f1f5f9;
-  --card: #111827;
-  --card-foreground: #f1f5f9;
-  --popover: #111827;
-  --popover-foreground: #f1f5f9;
-  --primary: #3b82f6;
-  --primary-foreground: #0f172a;
-  --secondary: #1f2937;
-  --secondary-foreground: #cbd5e1;
-  --muted: #1f2937;
-  --muted-foreground: #9ca3af;
-  --accent: #f59e0b;
-  --accent-foreground: #1e293b;
-  --destructive: #ef4444;
+  /* Dark Mode Palette (Tactical Night Command Center) */
+  --background: #060911;
+  --foreground: #f8fafc;
+  --card: #0b0f19;
+  --card-foreground: #f8fafc;
+  --popover: #0b0f19;
+  --popover-foreground: #f8fafc;
+  --primary: #2563eb;
+  --primary-foreground: #ffffff;
+  --secondary: #111827;
+  --secondary-foreground: #94a3b8;
+  --muted: #111827;
+  --muted-foreground: #64748b;
+  --accent: #d97706;
+  --accent-foreground: #060911;
+  --destructive: #dc2626;
   --destructive-foreground: #ffffff;
-  --border: #374151;
-  --input: #374151;
-  --ring: #3b82f6;
+  --border: #1e293b;
+  --input: #1e293b;
+  --ring: #2563eb;
+
+  /* Specific Concept A KSP Design Tokens */
+  --ksp-bg-base: #060911;
+  --ksp-bg-surface: #0b0f19;
+  --ksp-bg-elevated: #111827;
+  --ksp-border-subtle: #1e293b;
+  --ksp-border-strong: #334155;
+  --ksp-text-primary: #f8fafc;
+  --ksp-text-secondary: #94a3b8;
+  --ksp-text-muted: #64748b;
+  --ksp-police-blue: #2563eb;
+  --ksp-gold-accent: #d97706;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11", "tnum";
+  font-family: var(--font-geist-sans), var(--font-noto-kannada), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
 }
 
-/* Custom Scrollbar */
+/* Kannada script typography fix — Kannada glyphs need more vertical space */
+:lang(kn),
+.kn-text,
+[data-locale="kn"] {
+  font-family: var(--font-noto-kannada), var(--font-geist-sans), ui-sans-serif, sans-serif;
+  line-height: 1.75;
+  word-break: keep-all;
+}
+
+/* Tabular numbers for all police identifiers (KGID, FIR #, Coordinates, Hashes) */
+.ksp-mono-tabular {
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.01em;
+}
+
+/* High-Contrast WCAG Focus Ring */
+.ksp-focus-ring:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Custom Tactical Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
   background: var(--border);
-  border-radius: 3px;
+  border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--muted-foreground);
@@ -98,5 +148,120 @@ body {
 
 /* Micro-animations */
 .transition-all-custom {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Keyframe Definitions */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-up {
+  from { opacity: 0; transform: scale(0.98); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-in  { animation: fade-in  0.25s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-slide-up { animation: slide-up 0.25s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-scale-up { animation: scale-up 0.2s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── PRINT ENGINE OVERRIDES FOR OFFICIAL GOVERNMENT DOSSIERS ─── */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm 12mm 12mm;
+  }
+
+  /* Reset parent container heights & overflows so Chrome/Edge print engine paginates continuously */
+  *, ::before, ::after {
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Hide all app chrome, sidebars, navigation bars, top headers, dev overlay */
+  aside, 
+  header, 
+  nav, 
+  button, 
+  .print\:hidden,
+  [class*="sidebar"],
+  [class*="nav"],
+  [class*="Toast"],
+  [class*="nextjs-portal"] {
+    display: none !important;
+  }
+
+  /* Reset document root to clean white paper canvas */
+  html, body, main, #__next, root {
+    background: #ffffff !important;
+    color: #000000 !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* Target the printable document container */
+  .printable-dossier {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 10pt !important;
+    display: block !important;
+  }
+
+  /* Remove outer padding from parent wrappers in print mode */
+  div:has(> .printable-dossier) {
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+  }
+
+  .printable-dossier * {
+    color: #000000 !important;
+    border-color: #000000 !important;
+  }
+
+  /* Solid 1px black borders for official form tables */
+  .printable-dossier table, 
+  .printable-dossier th, 
+  .printable-dossier td {
+    border: 1px solid #000000 !important;
+  }
+
+  /* Element-level Page Break Utilities */
+  .print-page-break-before {
+    page-break-before: always !important;
+    break-before: page !important;
+  }
+
+  .print-avoid-break {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
 }

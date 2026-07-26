@@ -1,0 +1,30 @@
+[
+  {
+    "prompt": "Show me cases connected to burner phone 9876543210.",
+    "response": "Found 3 linked investigations through threat intelligence correlations:\n1. **Case Alpha (Cyber Phishing)**: Burner SIM used to monitor mule bank accounts.\n2. **Case Bravo (Narcotics Raid)**: Phone recovered from suspect Vikram Malhotra.\n3. **Case Delta (Human Trafficking)**: JP Prasad coordinate logs match call intervals.",
+    "citations": [
+      "Evidence-02 (CDR log)",
+      "Evidence-05 (Redmi Note 10 device)",
+      "Evidence-10 (Toll Pass registry)"
+    ],
+    "confidence": 0.98
+  },
+  {
+    "prompt": "Is there any link between the Narcotics case (Bravo) and the Missing Student case (Echo)?",
+    "response": "Yes, identified an active transportation link. The vehicle **KA-01-ME-1234** (Toyota Fortuner) seized in the narcotics raid was captured on CCTV exiting college Gate 2 during the exact timeframe Tarun Bhat went missing.",
+    "citations": [
+      "Evidence-06 (Fortuner inventory log)",
+      "Evidence-15 (College CCTV Gate 2 clip)"
+    ],
+    "confidence": 0.9
+  },
+  {
+    "prompt": "Why is the CA Priyesh Mehta flagged in the Money Laundering Case?",
+    "response": "CA Priyesh Mehta was the corporate registration signatory for Zenith Trading. Audit logs show Zenith Trading's Bank Account 1122334455 was used as a laundering sink for funds stolen from victim Shruti Hegde in the Case Alpha Cyber Phishing scam.",
+    "citations": [
+      "Evidence-08 (Incorporation certificate)",
+      "Evidence-09 (Zenith Bank Audit Statement)"
+    ],
+    "confidence": 0.94
+  }
+]

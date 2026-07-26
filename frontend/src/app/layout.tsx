@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Noto_Sans_Kannada } from "next/font/google";
 import "./globals.css";
 import { LocaleProvider } from "@/lib/locales-provider";
 import { AuthProvider } from "@/features/auth/auth-context";
@@ -16,9 +16,18 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Kannada script font — required for correct rendering of ತಳವಾರ and all KN locale text
+const notoSansKannada = Noto_Sans_Kannada({
+  variable: "--font-noto-kannada",
+  subsets: ["kannada"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "KSP AI Investigation Copilot",
-  description: "Intelligent Conversational AI and Crime Analytics Platform for the Karnataka State Police.",
+  title: "TALAARI (ತಳವಾರ) — AI Investigation Console | Karnataka State Police",
+  description: "TALAARI (ತಳವಾರ) — Intelligent AI Crime Analytics & Investigation Platform for Karnataka State Police.",
+  keywords: ["Karnataka State Police", "TALAARI", "AI Investigation", "Crime Analytics", "FIR Management"],
 };
 
 export const viewport: Viewport = {
@@ -33,9 +42,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full">
-      <head>
-      </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+      <head />
+      <body className={`${geistSans.variable} ${geistMono.variable} ${notoSansKannada.variable} h-full antialiased`}>
         <LocaleProvider>
           <AuthProvider>
             <ErrorBoundary>

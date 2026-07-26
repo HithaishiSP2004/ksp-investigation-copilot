@@ -74,7 +74,7 @@ export const IntelligenceService = {
         : 0;
 
     // Step 5: Persist versioned record
-    const record = IntelligenceRepository.save({
+    const record = await IntelligenceRepository.save({
       id: "intel-" + evidenceId + "-" + Date.now(),
       evidenceId,
       analyzedAt: new Date().toISOString(),
@@ -117,7 +117,7 @@ export const IntelligenceService = {
     officerKgid: string,
     officerName: string
   ): Promise<IntelligenceRecord | null> {
-    const latest = IntelligenceRepository.getLatestByEvidenceId(evidenceId);
+    const latest = await IntelligenceRepository.getLatestByEvidenceId(evidenceId);
     if (!latest) return null;
 
     const entity = latest.entities.find((e) => e.id === entityId);
@@ -141,21 +141,21 @@ export const IntelligenceService = {
       newStatus,
       timestamp: new Date().toISOString(),
     };
-    IntelligenceRepository.appendReviewEvent(reviewEvent);
+    await IntelligenceRepository.appendReviewEvent(reviewEvent);
 
     // Then mutate entity state in latest record
-    return IntelligenceRepository.updateEntityReviewStatus(
+    return await IntelligenceRepository.updateEntityReviewStatus(
       evidenceId,
       entityId,
       newStatus
     );
   },
 
-  getLatestRecord(evidenceId: number): IntelligenceRecord | null {
-    return IntelligenceRepository.getLatestByEvidenceId(evidenceId);
+  async getLatestRecord(evidenceId: number): Promise<IntelligenceRecord | null> {
+    return await IntelligenceRepository.getLatestByEvidenceId(evidenceId);
   },
 
-  getReviewEvents(evidenceId: number) {
-    return IntelligenceRepository.getReviewEvents(evidenceId);
+  async getReviewEvents(evidenceId: number): Promise<ReviewEvent[]> {
+    return await IntelligenceRepository.getReviewEvents(evidenceId);
   },
 };

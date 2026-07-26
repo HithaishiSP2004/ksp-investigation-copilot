@@ -1,0 +1,1 @@
+KSP SOP-EVIDENCE-02: Seized mobile phones must be placed in static-shield Faraday bags to prevent remote data wiping. Record device IMEI numbers, serial numbers, and screen states immediately. Log time and custodian at every transfer event to ensure chain of custody.

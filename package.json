@@ -6,6 +6,14 @@
     "postinstall": "npm install --prefix frontend",
     "dev": "npm run dev --prefix frontend",
     "build": "npm run build --prefix frontend",
-    "lint": "npm run lint --prefix frontend"
+    "lint": "npm run lint --prefix frontend",
+    "seed": "node deployment/database/seed.js demo",
+    "seed:minimal": "node deployment/database/seed.js minimal",
+    "seed:demo": "node deployment/database/seed.js demo",
+    "seed:full": "node deployment/database/seed.js full",
+    "seed:reset": "node deployment/database/seed.js reset"
+  },
+  "dependencies": {
+    "zcatalyst-sdk-node": "^3.4.0"
   }
 }

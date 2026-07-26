@@ -9,7 +9,7 @@ interface SuspectPanelProps {
   suspects: Suspect[];
 }
 
-export function SuspectPanel({ suspects }: SuspectPanelProps) {
+export function SuspectPanel({ suspects = [] }: SuspectPanelProps) {
   const { t } = useLocale();
   const [isOpen, setIsOpen] = useState(true);
 
@@ -28,7 +28,7 @@ export function SuspectPanel({ suspects }: SuspectPanelProps) {
   };
 
   return (
-    <div className="border border-border rounded-xl bg-card overflow-hidden">
+    <div className="border border-border rounded-xl bg-card overflow-hidden shrink-0">
       {/* Header Toggle bar */}
       <button
         onClick={() => setIsOpen(!isOpen)}

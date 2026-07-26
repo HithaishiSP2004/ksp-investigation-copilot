@@ -87,9 +87,9 @@ const CRIME_HEADS = [
 ];
 
 const CRIME_SUB_HEADS = [
-  { id: 101, name: "House Break-in and Burglary" },
+  { id: 101, name: "House Break-in & Burglary" },
   { id: 102, name: "Armed Robbery" },
-  { id: 201, name: "Identity Theft and Phishing" },
+  { id: 201, name: "Identity Theft & Phishing" },
   { id: 202, name: "Online Financial Fraud" },
   { id: 301, name: "Murder" },
   { id: 302, name: "Grievous Hurt" },
@@ -114,39 +114,39 @@ const EMPLOYEES = [
 const CASES = [
   {
     id: 1, crimeNo: "104430006202600001", caseNo: "202600001",
-    crimeRegisteredDate: "2026-03-12T10:30:00Z",
+    crimeRegisteredDate: "2026-03-12 10:30:00",
     policePersonId: 1, policeStationId: 6, caseCategoryId: 1,
     gravityOffenceId: 2, crimeMajorHeadId: 20, crimeMinorHeadId: 202,
     caseStatus: "UNDER_INVESTIGATION", priority: "HIGH",
-    briefFacts: "The complainant reports that on 2026-03-11 they received a phishing text message posing as their bank. Unauthorized transactions of 150000 rupees were debited from their savings account to a suspicious merchant wallet.",
-    incidentFromDate: "2026-03-11T14:00:00Z", incidentToDate: "2026-03-11T14:30:00Z",
-    infoReceivedPSDate: "2026-03-12T09:00:00Z",
+    briefFacts: "The complainant reports that on 2026-03-11, they received a text message containing a phishing link posing as their bank. Upon clicking the link and entering credentials, unauthorized transactions amounting to Rs.1,50,000 were debited from their savings account to a suspicious merchant wallet.",
+    incidentFromDate: "2026-03-11 14:00:00", incidentToDate: "2026-03-11 14:30:00",
+    infoReceivedPSDate: "2026-03-12 09:00:00",
     latitude: 12.971600, longitude: 77.594600,
-    createdAt: "2026-03-12T10:30:00Z", updatedAt: "2026-03-12T10:30:00Z",
+    createdAt: "2026-03-12 10:30:00", updatedAt: "2026-03-12 10:30:00",
   },
   {
     id: 2, crimeNo: "104430006202600002", caseNo: "202600002",
-    crimeRegisteredDate: "2026-04-05T09:15:00Z",
+    crimeRegisteredDate: "2026-04-05 09:15:00",
     policePersonId: 3, policeStationId: 7, caseCategoryId: 1,
     gravityOffenceId: 1, crimeMajorHeadId: 10, crimeMinorHeadId: 101,
     caseStatus: "UNDER_INVESTIGATION", priority: "MEDIUM",
-    briefFacts: "Unknown perpetrators broke the rear gate lock of a residential villa between 2026-04-04 and 2026-04-05 and stole gold jewelry of 120 grams and 50000 rupees cash.",
-    incidentFromDate: "2026-04-04T18:00:00Z", incidentToDate: "2026-04-05T06:00:00Z",
-    infoReceivedPSDate: "2026-04-05T08:00:00Z",
+    briefFacts: "Between 2026-04-04 18:00 and 2026-04-05 06:00, unknown perpetrators broke the lock of the rear gate of a residential villa and stole gold jewelry weighing approximately 120 grams and Rs.50,000 in cash. The occupants were away traveling.",
+    incidentFromDate: "2026-04-04 18:00:00", incidentToDate: "2026-04-05 06:00:00",
+    infoReceivedPSDate: "2026-04-05 08:00:00",
     latitude: 12.992200, longitude: 77.571200,
-    createdAt: "2026-04-05T09:15:00Z", updatedAt: "2026-04-05T09:15:00Z",
+    createdAt: "2026-04-05 09:15:00", updatedAt: "2026-04-05 09:15:00",
   },
   {
     id: 3, crimeNo: "104430006202600003", caseNo: "202600003",
-    crimeRegisteredDate: "2026-05-18T16:00:00Z",
+    crimeRegisteredDate: "2026-05-18 16:00:00",
     policePersonId: 1, policeStationId: 6, caseCategoryId: 1,
     gravityOffenceId: 2, crimeMajorHeadId: 20, crimeMinorHeadId: 201,
     caseStatus: "CLOSED", priority: "LOW",
-    briefFacts: "Suspect Suresh P. created a fraudulent social media profile mimicking the complainant identity and solicited financial loans from the contact list resulting in online scam transfers.",
-    incidentFromDate: "2026-05-10T09:00:00Z", incidentToDate: "2026-05-15T18:00:00Z",
-    infoReceivedPSDate: "2026-05-18T11:00:00Z",
+    briefFacts: "Suspect Suresh P. created a fraudulent social media profile mimicking the complainant's identity and solicited financial loans from the complainant's contact list, resulting in online scam transfers.",
+    incidentFromDate: "2026-05-10 09:00:00", incidentToDate: "2026-05-15 18:00:00",
+    infoReceivedPSDate: "2026-05-18 11:00:00",
     latitude: 12.925400, longitude: 77.582900,
-    createdAt: "2026-05-18T16:00:00Z", updatedAt: "2026-05-20T14:30:00Z",
+    createdAt: "2026-05-18 16:00:00", updatedAt: "2026-05-20 14:30:00",
   },
 ];
 
@@ -166,16 +166,23 @@ const SUSPECTS = [
 const NOTES = [
   {
     id: 1, caseId: 1,
-    content: "Sent official requisition letters to the bank fraud monitoring team requesting transaction IP logs and beneficiary wallet registration documents.",
+    content: "Sent official requisition letters to the bank's fraud monitoring team requesting transaction IP logs and beneficiary wallet registration documents.",
     createdBy: "Ramesh Kumar", createdKgid: "123456",
-    createdAt: "2026-03-12T11:30:00Z", updatedAt: "2026-03-12T11:30:00Z",
+    createdAt: "2026-03-12 11:30:00", updatedAt: "2026-03-12 11:30:00",
     isDeleted: false,
   },
   {
     id: 2, caseId: 1,
-    content: "CDR details of the suspect mobile number received. Analysing cell tower locations pointing to locations near Deoghar Jharkhand.",
+    content: "CDR details of the suspect mobile number received. Analysing cell tower locations pointing to locations near Deoghar, Jharkhand.",
     createdBy: "Ramesh Kumar", createdKgid: "123456",
-    createdAt: "2026-03-14T14:20:00Z", updatedAt: "2026-03-14T14:20:00Z",
+    createdAt: "2026-03-14 14:20:00", updatedAt: "2026-03-14 14:20:00",
+    isDeleted: false,
+  },
+  {
+    id: 3, caseId: 2,
+    content: "Retrieved local CCTV footage from neighboring intersection. A silver sedan was spotted idling near the gate during the incident window. Enhancing registration numbers.",
+    createdBy: "Anil Gowda", createdKgid: "112233",
+    createdAt: "2026-04-05 10:45:00", updatedAt: "2026-04-05 10:45:00",
     isDeleted: false,
   },
 ];
@@ -184,7 +191,7 @@ const EVIDENCE = [
   {
     id: 1, evidenceNo: "EV-2026-000001", caseId: 1, crimeNo: "104430006202600001",
     title: "Beneficiary Wallet Account Statement",
-    description: "PDF bank statement detailing money transfers routed from the complainant savings account.",
+    description: "PDF bank statement detailing money transfers routed from the complainant's savings account.",
     evidenceType: "DOCUMENT", status: "SECURED",
     collectionDate: "2026-03-12", collectionTime: "11:00",
     latitude: 12.971600, longitude: 77.594600,
@@ -192,12 +199,14 @@ const EVIDENCE = [
     fileHash: "a3a25fa2d385cd17a6ea6238ad5fe00a89d5f784d113ede49ea6238ad5ff0021",
     fileSize: 450230, mimeType: "application/pdf", fileName: "wallet_statement_transfers.pdf",
     tags: '["phishing","bank_statement","mule_wallet"]',
-    createdAt: "2026-03-12T11:00:00Z", updatedAt: "2026-03-12T11:00:00Z",
+    ocrText: null, aiLabels: null, analysisSummary: null,
+    extractedEntities: '{"PERSON":["Imran Khan"],"PHONE":["8899889988"]}',
+    createdAt: "2026-03-12 11:00:00", updatedAt: "2026-03-12 11:00:00",
   },
   {
     id: 2, evidenceNo: "EV-2026-000002", caseId: 2, crimeNo: "104430006202600002",
     title: "Intersection CCTV Footage Screenshot",
-    description: "Image captured from intersection camera showing suspect silver sedan idling during the burglary timeframe.",
+    description: "Image captured from YES intersection camera showing suspect silver sedan idling during the burglary timeframe.",
     evidenceType: "IMAGE", status: "SECURED",
     collectionDate: "2026-04-05", collectionTime: "10:15",
     latitude: 12.992200, longitude: 77.571200,
@@ -205,11 +214,13 @@ const EVIDENCE = [
     fileHash: "c5c25fa2d385cd17a6ea6238ad5fe00a89d5f784d113ede49ea6238ad5ff0042",
     fileSize: 2048500, mimeType: "image/png", fileName: "cctv_suspect_vehicle.png",
     tags: '["burglary","cctv_frame","vehicle_plate"]',
-    createdAt: "2026-04-05T10:15:00Z", updatedAt: "2026-04-05T10:15:00Z",
+    ocrText: null, aiLabels: null, analysisSummary: null,
+    extractedEntities: '{"VEHICLE":["Silver Sedan"]}',
+    createdAt: "2026-04-05 10:15:00", updatedAt: "2026-04-05 10:15:00",
   },
   {
     id: 3, evidenceNo: "EV-2026-000003", caseId: 3, crimeNo: "104430006202600003",
-    title: "Suspect Mobile Device OnePlus 11R",
+    title: "Suspect Mobile Device (OnePlus 11R)",
     description: "Recovered physical mobile handset containing fraudulent social media logins and spoofed contacts logs.",
     evidenceType: "DEVICE", status: "SUBMITTED_TO_COURT",
     collectionDate: "2026-05-19", collectionTime: "12:30",
@@ -218,22 +229,51 @@ const EVIDENCE = [
     fileHash: "f1f25fa2d385cd17a6ea6238ad5fe00a89d5f784d113ede49ea6238ad5ff0063",
     fileSize: 0, mimeType: "application/octet-stream", fileName: "oneplus_handset_recovered",
     tags: '["identity_theft","physical_device","handset"]',
-    createdAt: "2026-05-19T12:30:00Z", updatedAt: "2026-05-20T16:00:00Z",
+    ocrText: null, aiLabels: null, analysisSummary: null,
+    extractedEntities: '{}',
+    createdAt: "2026-05-19 12:30:00", updatedAt: "2026-05-20 16:00:00",
   },
 ];
 
 const CUSTODY_EVENTS = [
-  { id: 1, evidenceId: 1, timestamp: "2026-03-12T11:00:00Z", officerName: "Ramesh Kumar", officerKgid: "123456", action: "REGISTERED", previousState: "None", currentState: "SECURED", remarks: "Seized wallet transfer details from complainant at PS console." },
-  { id: 2, evidenceId: 2, timestamp: "2026-04-05T10:15:00Z", officerName: "Anil Gowda", officerKgid: "112233", action: "REGISTERED", previousState: "None", currentState: "SECURED", remarks: "Screenshotted suspect sedan vehicle license plates from intersection CCTV files." },
-  { id: 3, evidenceId: 3, timestamp: "2026-05-19T12:30:00Z", officerName: "Ramesh Kumar", officerKgid: "123456", action: "REGISTERED", previousState: "None", currentState: "SECURED", remarks: "Physical recovery of suspect OnePlus 11R mobile handset during search warrant execution." },
-  { id: 4, evidenceId: 3, timestamp: "2026-05-20T16:00:00Z", officerName: "Ramesh Kumar", officerKgid: "123456", action: "STATUS_CHANGED", previousState: "SECURED", currentState: "SUBMITTED_TO_COURT", remarks: "Transferred OnePlus handset to Court Registry under formal request seal." },
+  { id: 1, evidenceId: 1, timestamp: "2026-03-12 11:00:00", officerName: "Ramesh Kumar", officerKgid: "123456", action: "REGISTERED", previousState: "None", currentState: "SECURED", remarks: "Seized wallet transfer details from complainant at PS console." },
+  { id: 2, evidenceId: 2, timestamp: "2026-04-05 10:15:00", officerName: "Anil Gowda", officerKgid: "112233", action: "REGISTERED", previousState: "None", currentState: "SECURED", remarks: "Screenshotted suspect sedan vehicle license plates from intersection CCTV files." },
+  { id: 3, evidenceId: 3, timestamp: "2026-05-19 12:30:00", officerName: "Ramesh Kumar", officerKgid: "123456", action: "REGISTERED", previousState: "None", currentState: "SECURED", remarks: "Physical recovery of suspect OnePlus 11R mobile handset during search warrant execution." },
+  { id: 4, evidenceId: 3, timestamp: "2026-05-20 16:00:00", officerName: "Ramesh Kumar", officerKgid: "123456", action: "STATUS_CHANGED", previousState: "SECURED", currentState: "SUBMITTED_TO_COURT", remarks: "Transferred OnePlus handset to Court Registry under formal request seal." },
 ];
 
 const ACTIVITY_LOGS = [
-  { id: 1, caseId: 1, crimeNo: "104430006202600001", caseNo: "202600001", officerName: "Ramesh Kumar", action: "CREATED", timestamp: "2026-03-12T10:30:00Z" },
-  { id: 2, caseId: 2, crimeNo: "104430006202600002", caseNo: "202600002", officerName: "Anil Gowda", action: "CREATED", timestamp: "2026-04-05T09:15:00Z" },
-  { id: 3, caseId: 3, crimeNo: "104430006202600003", caseNo: "202600003", officerName: "Ramesh Kumar", action: "CREATED", timestamp: "2026-05-18T16:00:00Z" },
-  { id: 4, caseId: 3, crimeNo: "104430006202600003", caseNo: "202600003", officerName: "Ramesh Kumar", action: "STATUS_CHANGED", timestamp: "2026-05-20T14:30:00Z" },
+  { id: 1, caseId: 1, crimeNo: "104430006202600001", caseNo: "202600001", officerName: "Ramesh Kumar", action: "CREATED", timestamp: "2026-03-12 10:30:00" },
+  { id: 2, caseId: 2, crimeNo: "104430006202600002", caseNo: "202600002", officerName: "Anil Gowda", action: "CREATED", timestamp: "2026-04-05 09:15:00" },
+  { id: 3, caseId: 3, crimeNo: "104430006202600003", caseNo: "202600003", officerName: "Ramesh Kumar", action: "CREATED", timestamp: "2026-05-18 16:00:00" },
+  { id: 4, caseId: 3, crimeNo: "104430006202600003", caseNo: "202600003", officerName: "Ramesh Kumar", action: "STATUS_CHANGED", timestamp: "2026-05-20 14:30:00" },
+];
+
+const INTELLIGENCE_RECORDS = [
+  {
+    id: "intel-uuid-1",
+    evidenceId: 1,
+    version: 1,
+    analyzedAt: "2026-03-12 12:00:00",
+    ocrRawText: "Bank Statement Account details. Beneficiary: Imran Khan. Phone: 8899889988. Account No: 9876543210.",
+    ocrConfidence: 0.95,
+    ocrProvider: "CATALYST_ZIA_OCR",
+    analysisSummary: "AI extracted beneficiary account associated with suspect Imran Khan and contact mobile number.",
+    aiLabels: '["phishing","mule_account","fraud"]',
+    overallConfidence: 0.92,
+    provider: "CATALYST_ZIA_OCR",
+    relationships: '[{"id":"rel-1-1","fromEntityId":"entity-uuid-1","toEntityId":"entity-uuid-2","relationshipType":"HAS_CONTACT","confidence":0.882,"sourceEvidenceId":1}]'
+  }
+];
+
+const EXTRACTED_ENTITIES = [
+  { id: "entity-uuid-1", intelligenceRecordId: "intel-uuid-1", sourceEvidenceId: 1, value: "Imran Khan", type: "PERSON", confidence: 0.98, extractionMethod: "ZIA_NLP", extractedAt: "2026-03-12 12:00:00", reviewStatus: "ACCEPTED" },
+  { id: "entity-uuid-2", intelligenceRecordId: "intel-uuid-1", sourceEvidenceId: 1, value: "8899889988", type: "PHONE", confidence: 0.99, extractionMethod: "REGEX_PATTERN", extractedAt: "2026-03-12 12:00:00", reviewStatus: "ACCEPTED" }
+];
+
+const REVIEW_EVENTS = [
+  { id: "review-uuid-1", entityId: "entity-uuid-1", evidenceId: 1, officerKgid: "123456", officerName: "Ramesh Kumar", action: "ACCEPTED", previousStatus: "PENDING", newStatus: "ACCEPTED", timestamp: "2026-03-12 12:05:00" },
+  { id: "review-uuid-2", entityId: "entity-uuid-2", evidenceId: 1, officerKgid: "123456", officerName: "Ramesh Kumar", action: "ACCEPTED", previousStatus: "PENDING", newStatus: "ACCEPTED", timestamp: "2026-03-12 12:05:10" }
 ];
 
 // ==========================================
@@ -264,9 +304,14 @@ async function main() {
   await insertRows("CustodyEvent", CUSTODY_EVENTS);
   await insertRows("ActivityLog", ACTIVITY_LOGS);
 
+  console.log("\n[ Step 3 ] Seeding AI Telemetry...");
+  await insertRows("IntelligenceRecord", INTELLIGENCE_RECORDS);
+  await insertRows("ExtractedEntity", EXTRACTED_ENTITIES);
+  await insertRows("ReviewEvent", REVIEW_EVENTS);
+
   console.log("\n=".repeat(55));
   console.log("Seeding complete. Run verification queries in the Catalyst Console.");
-  console.log("See: deployment/database/CATALYST_DATASTORE_SETUP.md — Part 5");
+  console.log("See: deployment/database/05_verify.sql");
 }
 
 main().catch((err) => {

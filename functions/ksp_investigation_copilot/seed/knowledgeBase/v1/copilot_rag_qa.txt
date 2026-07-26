@@ -1,0 +1,1 @@
+EVALUATION DATASET: Q: What is BNS Section 111? A: Covers Organized Crime syndicates, carrying penalty up to death. Citation: BNS Section 111. Q: How to store seized Android devices? A: Put in static-shield Faraday bag, record IMEI. Citation: SOP-EVIDENCE-02. Q: What is the FSL transit timeline? A: Send within 72 hours. Citation: SOP-NARCO-03.

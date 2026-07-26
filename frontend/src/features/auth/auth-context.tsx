@@ -44,7 +44,7 @@ const loadCDNScript = (resolve: (value: { autoInitialized: boolean }) => void) =
   };
 
   cdnScript.onerror = () => {
-    console.error("Failed to load Catalyst CDN SDK fallback.");
+    console.warn("Failed to load Catalyst CDN SDK fallback.");
     resolve({ autoInitialized: false });
   };
 
@@ -89,7 +89,7 @@ const loadCatalystScript = (): Promise<{ autoInitialized: boolean }> => {
         }
       };
       script.onerror = () => {
-        console.error("Failed to load Hosted SDK. Attempting CDN fallback.");
+        console.warn("Failed to load Hosted SDK. Attempting CDN fallback.");
         document.head.removeChild(script);
         loadCDNScript(resolve);
       };
@@ -101,7 +101,7 @@ const loadCatalystScript = (): Promise<{ autoInitialized: boolean }> => {
         resolve({ autoInitialized: false });
       };
       script.onerror = () => {
-        console.error("Failed to load Catalyst CDN SDK.");
+        console.warn("Failed to load Catalyst CDN SDK (offline mode).");
         resolve({ autoInitialized: false });
       };
     }
@@ -126,7 +126,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   
   // Set authMode state during initialization to avoid setState in useEffect
-  const [authMode] = useState<"catalyst" | "mock">(
+  const [authMode, setAuthMode] = useState<"catalyst" | "mock">(
     process.env.NEXT_PUBLIC_CATALYST_PROJECT_ID === "mock_project_id" ? "mock" : "catalyst"
   );
 
@@ -205,11 +205,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             }
           }
         } else {
-          console.error("Catalyst Web SDK script failed to load. Halting session recovery.");
+          console.warn("Catalyst Web SDK failed to load. Falling back to Mock authentication mode.");
           if (active) {
             queueMicrotask(() => {
-              setUser(null);
-              setIsLoading(false);
+              setAuthMode("mock");
             });
           }
         }
