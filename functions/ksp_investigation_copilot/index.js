@@ -1,4 +1,9 @@
+console.log("==================================");
+console.log("KSP FUNCTION STARTED");
+console.log("URL:", process.env);
+console.log("==================================");
 'use strict';
+
 
 const express = require('express');
 const catalyst = require('zcatalyst-sdk-node');
@@ -16,6 +21,19 @@ const MAJOR_HEADS_MAP = {
 };
 
 const app = express();
+
+// === DIAGNOSTIC: FIRST MIDDLEWARE — logs every request before any processing ===
+app.use((req, res, next) => {
+  console.log('[DIAG-REQUEST] ========================================');
+  console.log('[DIAG-REQUEST] method      :', req.method);
+  console.log('[DIAG-REQUEST] req.url     :', req.url);
+  console.log('[DIAG-REQUEST] req.path    :', req.path);
+  console.log('[DIAG-REQUEST] originalUrl :', req.originalUrl);
+  console.log('[DIAG-REQUEST] baseUrl     :', req.baseUrl);
+  console.log('[DIAG-REQUEST] ========================================');
+  next();
+});
+
 app.use(express.json());
 
 // Normalize Catalyst server function URL prefixes (/server/ksp_investigation_copilot/api/...)
@@ -569,12 +587,12 @@ app.get('/api/cases/:id', async (req, res) => {
 // POST /api/cases — Create case
 app.post('/api/cases', async (req, res) => {
   const caseData = req.body || {};
-  
+
   // Validate required payload fields
   const missingFields = [];
   if (!caseData.crimeNo) missingFields.push('crimeNo (FIR Number)');
   if (!caseData.briefFacts) missingFields.push('briefFacts (Summary)');
-  
+
   if (missingFields.length > 0) {
     return sendError(
       res,
@@ -1860,5 +1878,19 @@ app.use((err, req, res, next) => {
   console.error('[Express Fatal Uncaught Error]:', err);
   return sendError(res, 'Internal Server Error', 'INTERNAL_ERROR', err.message, 500);
 });
+
+// === DIAGNOSTIC: Print registered Express route table at startup ===
+console.log('[DIAG-ROUTES] === Express Route Table ===');
+if (app._router && app._router.stack) {
+  app._router.stack.forEach((layer) => {
+    if (layer.route) {
+      const methods = Object.keys(layer.route.methods).join(',').toUpperCase();
+      console.log(`[DIAG-ROUTES] ${methods} ${layer.route.path}`);
+    } else if (layer.name) {
+      console.log(`[DIAG-ROUTES] middleware: ${layer.name}`);
+    }
+  });
+}
+console.log('[DIAG-ROUTES] === End Route Table ===');
 
 module.exports = app;

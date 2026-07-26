@@ -1,0 +1,122 @@
+[
+  {
+    "name": "health",
+    "source_endpoint": "/api/health",
+    "target_endpoint": "/server/ksp_investigation_copilot/api/health",
+    "target": "advancedio",
+    "method": "GET",
+    "throttling": {
+      "overall": {},
+      "ip": {}
+    },
+    "target_id": "54539000000055001"
+  },
+  {
+    "name": "lookups",
+    "source_endpoint": "/api/lookups",
+    "target_endpoint": "/server/ksp_investigation_copilot/api/lookups",
+    "target": "advancedio",
+    "method": "GET",
+    "throttling": {
+      "overall": {},
+      "ip": {}
+    },
+    "target_id": "54539000000055001"
+  },
+  {
+    "name": "cases_get",
+    "source_endpoint": "/api/cases",
+    "target_endpoint": "/server/ksp_investigation_copilot/api/cases",
+    "target": "advancedio",
+    "method": "GET",
+    "throttling": {
+      "overall": {},
+      "ip": {}
+    },
+    "target_id": "54539000000055001"
+  },
+  {
+    "name": "evidence_get",
+    "source_endpoint": "/api/evidence",
+    "target_endpoint": "/server/ksp_investigation_copilot/api/evidence",
+    "target": "advancedio",
+    "method": "GET",
+    "throttling": {
+      "overall": {},
+      "ip": {}
+    },
+    "target_id": "54539000000055001"
+  },
+  {
+    "name": "graph",
+    "source_endpoint": "/api/graph",
+    "target_endpoint": "/server/ksp_investigation_copilot/api/graph",
+    "target": "advancedio",
+    "method": "GET",
+    "throttling": {
+      "overall": {},
+      "ip": {}
+    },
+    "target_id": "54539000000055001"
+  },
+  {
+    "name": "dashboard_snapshot",
+    "source_endpoint": "/api/dashboard/snapshot",
+    "target_endpoint": "/server/ksp_investigation_copilot/api/dashboard/snapshot",
+    "target": "advancedio",
+    "method": "GET",
+    "throttling": {
+      "overall": {},
+      "ip": {}
+    },
+    "target_id": "54539000000055001"
+  },
+  {
+    "name": "manifest",
+    "source_endpoint": "/api/manifest",
+    "target_endpoint": "/server/ksp_investigation_copilot/api/manifest",
+    "target": "advancedio",
+    "method": "GET",
+    "throttling": {
+      "overall": {},
+      "ip": {}
+    },
+    "target_id": "54539000000055001"
+  },
+  {
+    "name": "chat_examples",
+    "source_endpoint": "/api/chat/examples",
+    "target_endpoint": "/server/ksp_investigation_copilot/api/chat/examples",
+    "target": "advancedio",
+    "method": "GET",
+    "throttling": {
+      "overall": {},
+      "ip": {}
+    },
+    "target_id": "54539000000055001"
+  },
+  {
+    "name": "activity_logs_get",
+    "source_endpoint": "/api/activity-logs",
+    "target_endpoint": "/server/ksp_investigation_copilot/api/activity-logs",
+    "target": "advancedio",
+    "method": "GET",
+    "throttling": {
+      "overall": {},
+      "ip": {}
+    },
+    "target_id": "54539000000055001"
+  },
+  {
+    "name": "intelligence",
+    "source_endpoint": "/api/intelligence",
+    "target_endpoint": "/server/ksp_investigation_copilot/api/intelligence",
+    "target": "advancedio",
+    "method": "POST",
+    "throttling": {
+      "overall": {},
+      "ip": {}
+    },
+    "target_id": "54539000000055001"
+  }
+]

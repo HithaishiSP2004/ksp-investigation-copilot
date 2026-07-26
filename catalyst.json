@@ -10,6 +10,10 @@
     ]
   },
   "slate": {
-    "source": "frontend"
+    "source": "frontend/out"
+  },
+  "apig": {
+    "rules": "catalyst-user-rules.json",
+    "enabled": true
   }
 }
